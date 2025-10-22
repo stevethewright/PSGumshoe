@@ -1,9 +1,9 @@
 function Search-EventLogEventData {
     <#
     .SYNOPSIS
-        Internal funtion for searching events with a keyed flat Event Data structure.
+        Internal function for searching events with a keyed flat Event Data structure.
     .DESCRIPTION
-        Internal funtion for searching events with a keyed flat Event Data structure.
+        Internal function for searching events with a keyed flat Event Data structure.
     .EXAMPLE
         PS C:\> <example usage>
         Explanation of what the example does
@@ -49,7 +49,6 @@ function Search-EventLogEventData {
     begin {
 
         # Get paramters for use in creating the filter.
-        #$Params = $MyInvocation.BoundParameters.Keys
         [System.Collections.ArrayList]$Params = $ParamHash.keys
         $CommonParams = ([System.Management.Automation.Cmdlet]::CommonParameters) + @('Credential', 'ComputerName', 'MaxEvents', 'StartTime', 'EndTime', 'Path', 'ChangeLogic','ActivityType','Suppress')
 
@@ -175,7 +174,7 @@ function Search-EventLogEventData {
             ('ComputerName') {
                $ParamHash['ComputerName'] | ForEach-Object {
                    Write-Verbose -Message "Querying $($_)"
-                   if ($Params -notcontains $Credential) {
+                   if ($Params -notcontains 'Credential') {
                         if ($MaxEvents -gt 0) {
                            if ($ReturnRecord) {
                                 Get-WinEvent -FilterXml $BaseFilter -MaxEvents $MaxEvents -ComputerName $_ -ErrorAction SilentlyContinue
