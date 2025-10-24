@@ -8,7 +8,7 @@
     MITRE Attack Navigator for displaying the information in a layer.
 .EXAMPLE
     Import-Csv .\Desktop\Lockbit3.csv | New-NavigatorJson -Path .\Desktop\lockbit.json
-    Turns a CSV with the fields Id for the techniqueID and comment in to a MITRE Attck Navigator Json file.
+    Turns a CSV with the fields Id for the techniqueID and comment in to a MITRE Attack Navigator Json file.
 .EXAMPLE
     New-NavigatorJson -Name "Pentest Daily Technique D3" -path .\dayly3.json -Id @('T1134','T1612','T1548.001') -Color Purple -Comment "actions of day 3"
     Manually generate a a layer using a list of Technique IDs.
@@ -124,7 +124,7 @@ function New-NavigatorJson {
     process {
 
         $Id | foreach-object {
-            Write-Verbose -Message "Adding techinique $_"
+            Write-Verbose -Message "Adding technique $_"
             $Technique = @{'techniqueID'=$_}
 
             if ($PSBoundParameters.ContainsKey('score')) {
@@ -144,6 +144,6 @@ function New-NavigatorJson {
     
     end {
         $BaseStructure.Add('techniques',$techniques)
-        convertto-Json -InputObject $BaseStructure | Set-Content -Path $Path
+        ConvertTo-Json -InputObject $BaseStructure | Set-Content -Path $Path
     }
 }

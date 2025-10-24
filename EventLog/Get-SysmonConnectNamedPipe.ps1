@@ -39,7 +39,7 @@ function Get-SysmonConnectNamedPipe {
         [string[]]
         $Image,
 
-        # Name of the pipe created by the propcess.
+        # Name of the pipe created by the process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

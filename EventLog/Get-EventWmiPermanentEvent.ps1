@@ -26,13 +26,13 @@ function Get-EventWmiPermanentEvent {
         [string[]]
         $Namespace,
 
-        # Consumer that was binded with the filter.
+        # Consumer that was bound to the filter.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
         $Consumer,
 
-        # Filter that was binded with the consumer.
+        # Filter that was bound to the consumer.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

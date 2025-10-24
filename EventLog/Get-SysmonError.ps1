@@ -31,7 +31,7 @@ function Get-SysmonError {
         [string[]]
         $Path,
 
-        # Error ID, there are 2 IDs one for Driver Communication errors and a second one for Service Thread erros.
+        # Error ID, there are 2 IDs one for Driver Communication errors and a second one for Service Thread errors.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

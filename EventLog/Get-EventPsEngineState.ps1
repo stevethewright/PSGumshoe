@@ -7,7 +7,7 @@
     Get-EventPsEngineState -Status Start | where {$_.hostVersion -like "*2.*"}
     Find all engine start events where the engine is for PowerShell 2.0.
 .NOTES
-    This function needs to be executed with administrator priviages on the host.
+    This function needs to be executed with administrator privileges on the host.
 #>
 function Get-EventPsEngineState {
     [CmdletBinding(DefaultParameterSetName = 'Local')]

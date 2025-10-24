@@ -23,7 +23,7 @@ function Get-SysmonProcessAccess {
         [string]
         $LogName = 'Microsoft-Windows-Sysmon/Operational',
 
-        # The GUID value created by Sysmon that uniquely and universally identifies the process instance accesing a target process.
+        # The GUID value created by Sysmon that uniquely and universally identifies the process instance accessing a target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -35,7 +35,7 @@ function Get-SysmonProcessAccess {
         [string[]]
         $SourceProcessId,
 
-        # The thread ID of the source process that identifies the process instance accesing a target process.
+        # The thread ID of the source process that identifies the process instance accessing a target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -53,13 +53,13 @@ function Get-SysmonProcessAccess {
         [string[]]
         $TargetImage,
 
-        # The permission granted to the sourced process when accesing the target process.
+        # The permission granted to the sourced process when accessing the target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
         $GrantedAccess,
 
-        # The call traced of the source procees acceing the target process.
+        # The call traced of the source process accessing the target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

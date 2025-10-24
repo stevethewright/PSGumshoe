@@ -25,7 +25,7 @@ function Get-SysmonConfigChange {
         $LogName = 'Microsoft-Windows-Sysmon/Operational',
 
         # Full path of XML file used for configuration, current folder of the process and full command line of execution for configuration or
-        # currentlocation with the word Default at the end of the path in case the configuration was reset to default values.
+        # current location with the word Default at the end of the path in case the configuration was reset to default values.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

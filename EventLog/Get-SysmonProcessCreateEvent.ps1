@@ -114,7 +114,7 @@ function Get-SysmonProcessCreateEvent {
         [string[]]
         $IntegrityLevel,
 
-        # Imange hash.
+        # Image hash.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -126,7 +126,7 @@ function Get-SysmonProcessCreateEvent {
         [string[]]
         $ParentProcessGuid,
 
-        # Parant process Id.
+        # Parent process Id.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

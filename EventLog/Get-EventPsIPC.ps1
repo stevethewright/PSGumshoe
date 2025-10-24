@@ -80,10 +80,10 @@ function Get-EventPsIPC {
     Begin {}
     Process {
 
-       # Hash for filtering
+        # Hash for filtering
         $HashFilter = @{LogName=$LogName; Id=53504; ProviderName='Microsoft-Windows-PowerShell'}
 
-        # Hash for command paramteters
+        # Hash for command parameters
         $ParamHash = @{}
 
         if ($MaxEvents -gt 0)

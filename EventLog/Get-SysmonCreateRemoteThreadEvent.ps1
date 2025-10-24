@@ -64,7 +64,7 @@ function Get-SysmonCreateRemoteThreadEvent {
         [string[]]
         $TargetImage,
 
-        # The thread Id for the process cresated.
+        # The thread Id for the process created.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]

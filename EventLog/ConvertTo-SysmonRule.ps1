@@ -7,7 +7,7 @@
     have a Group Relation of 'and'.
 .EXAMPLE
     PS C:\> Get-SysmonProcessCreateEvent -Path C:\bootevents.evtx -Image "c:\windows\system32\svchost.exe" | select parentimage,commandline | ConvertTo-SysmonRule
-    Create rule groups to filter on svchost.exe pararent process and command line.
+    Create rule groups to filter on svchost.exe parent process and command line.
 .INPUTS
     System.Management.Automation.PSCustomObject
     System.String

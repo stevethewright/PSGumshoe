@@ -66,10 +66,10 @@ function Get-EventPsPipeline {
 
     Begin {}
     Process {
-       # Hash for filtering
+        # Hash for filtering
         $HashFilter = @{LogName=$LogName; Id=800; ProviderName='PowerShell'}
 
-        # Hash for command paramteters
+        # Hash for command parameters
         $ParamHash = @{}
 
         if ($MaxEvents -gt 0)

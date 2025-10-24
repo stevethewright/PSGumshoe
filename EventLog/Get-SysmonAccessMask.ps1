@@ -23,7 +23,7 @@
 function Get-SysmonAccessMask {
     [CmdletBinding(DefaultParameterSetName = 'Mask')]
     param (
-        # Acces mask names.
+        # Access mask names.
         [Parameter(Mandatory=$true,
             ParameterSetName='Access')]
         [ValidateSet("PROCESS_CREATE_PROCESS", "PROCESS_CREATE_THREAD", "PROCESS_DUP_HANDLE","PROCESS_SET_INFORMATION",

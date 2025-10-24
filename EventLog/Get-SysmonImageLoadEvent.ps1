@@ -22,7 +22,7 @@ function Get-SysmonImageLoadEvent {
         [string]
         $LogName = 'Microsoft-Windows-Sysmon/Operational',
 
-        # Image that is loading other imagaes (Process full path in most cases).
+        # Image that is loading other images (Process full path in most cases).
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
