@@ -85,7 +85,7 @@ function Get-EventWmiProviderStart {
     begin {}
 
     process {
-        Search-EventLogUsertData -EventId 5857 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $MyInvocation.BoundParameters | ForEach-Object {
+        Search-EventLogUserData -EventId 5857 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $MyInvocation.BoundParameters | ForEach-Object {
             [xml]$evtxml = $_.toxml()
             $ProcInfo = [ordered]@{}
             $ProcInfo['EventId'] = $evtxml.Event.System.EventID

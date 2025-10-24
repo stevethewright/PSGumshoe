@@ -106,7 +106,7 @@ function Get-EventWmiOperationFailure {
     begin {}
 
     process {
-        Search-EventLogUsertData -EventId 5858 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $MyInvocation.BoundParameters | ForEach-Object {
+        Search-EventLogUserData -EventId 5858 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $MyInvocation.BoundParameters | ForEach-Object {
             [xml]$evtxml = $_.toxml()
             $ProcInfo = [ordered]@{}
             $ProcInfo['EventId'] = $evtxml.Event.System.EventID

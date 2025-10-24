@@ -7,16 +7,16 @@
     and custom fields within UserData, including nested sub-elements. The function can query
     local logs, remote systems or `.evtx` files and supports logic inversion and suppression filtering.
 .EXAMPLE
-    Search-EventLogUsertData -EventId 1000 -ParamHash @{ Path = 'C:\Logs\Application.evtx'; Provider = 'Application Error'; Message = 'svchost.exe' }
+    Search-EventLogUserData -EventId 1000 -ParamHash @{ Path = 'C:\Logs\Application.evtx'; Provider = 'Application Error'; Message = 'svchost.exe' }
     Searches a local `.evtx` file for Event ID 1000 from the 'Application Error' provider where the `Message` field equals `svchost.exe`.
 .EXAMPLE
-    Search-EventLogUsertData -EventId 20001 -ParamHash @{ ComputerName = 'Server01'; Provider = 'CustomApp'; UserName = 'jdoe' }
+    Search-EventLogUserData -EventId 20001 -ParamHash @{ ComputerName = 'Server01'; Provider = 'CustomApp'; UserName = 'jdoe' }
     Queries a remote system for Event ID 20001 from the 'CustomApp' provider where the `UserName` field is `jdoe`.
 .EXAMPLE
-    Search-EventLogUsertData -EventId 30001 -ParamHash @{ Path = 'C:\Logs\App.evtx'; Provider = 'MyApp'; Suppress = $true; Action = 'Delete' }
+    Search-EventLogUserData -EventId 30001 -ParamHash @{ Path = 'C:\Logs\App.evtx'; Provider = 'MyApp'; Suppress = $true; Action = 'Delete' }
     Searches a local `.evtx` file for Event ID 30001 from 'MyApp', excluding events where the `Action` field is `Delete`.
 #>
-function Search-EventLogUsertData {
+function Search-EventLogUserData {
     [CmdletBinding()]
     param (
         # Parameters of cmdlet using this helper function.

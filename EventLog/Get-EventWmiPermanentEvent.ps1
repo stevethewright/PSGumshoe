@@ -109,7 +109,7 @@ function Get-EventWmiPermanentEvent {
 
     process {
         
-        Search-EventLogUsertData -EventId 5861 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $Params | ForEach-Object {
+        Search-EventLogUserData -EventId 5861 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $Params | ForEach-Object {
             [xml]$evtxml = $_.toxml()
             $ProcInfo = [ordered]@{}
             $ProcInfo['EventId'] = $evtxml.Event.System.EventID
