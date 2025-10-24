@@ -1,14 +1,22 @@
+<#
+.SYNOPSIS
+    Retrieves PowerShell script block invocation events from local or remote event logs or .evtx files.
+.DESCRIPTION
+    Searches for PowerShell script block invocation events (Event ID 4104) from the
+    "Microsoft-Windows-PowerShell/Operational" log or from specified .evtx files.
+    It supports filtering by time range, script block ID and logic modifiers.
+    It can query local logs, remote computers or offline event log files.
+.EXAMPLE
+    PS C:\> Get-EventPsScriptBlock -StartTime (Get-Date).AddHours(-2)
+    Retrieves PowerShell script block events from the last 2 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventPsScriptBlock -Path "C:\Logs\PowerShell.evtx"
+    Retrieves script block events from the specified .evtx file.
+.EXAMPLE
+    PS C:\> Get-EventPsScriptBlock -ComputerName "DC01" -Credential (Get-Credential) -ScriptBlockId "abc123"
+    Retrieves script block events from a remote computer filtered by a specific ScriptBlock ID.
+#>
 function Get-EventPsScriptBlock {
-    <#
-    .Synopsis
-    Short description
-    .DESCRIPTION
-    Long description
-    .EXAMPLE
-    Example of how to use this cmdlet
-    .EXAMPLE
-    Another example of how to use this cmdlet
-    #>
     [CmdletBinding(DefaultParameterSetName='none')]
     [Alias()]
     [OutputType([PSObject])]
@@ -58,12 +66,12 @@ function Get-EventPsScriptBlock {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

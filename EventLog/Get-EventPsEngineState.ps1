@@ -1,16 +1,15 @@
-function Get-EventPsEngineState {
-    <#
-    .Synopsis
+<#
+.SYNOPSIS
     Get serialized Windows PowerShell engine state events.
-    .DESCRIPTION
+.DESCRIPTION
     Get serialized Windows PowerShell engine state events. Query engine start, stop or all engine state events.
-    .EXAMPLE
+.EXAMPLE
     Get-EventPsEngineState -Status Start | where {$_.hostVersion -like "*2.*"}
-
     Find all engine start events where the engine is for PowerShell 2.0.
-    .NOTES
+.NOTES
     This function needs to be executed with administrator priviages on the host.
-    #>
+#>
+function Get-EventPsEngineState {
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -62,12 +61,12 @@ function Get-EventPsEngineState {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

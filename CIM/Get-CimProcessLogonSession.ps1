@@ -1,37 +1,35 @@
+<#
+.SYNOPSIS
+    Query the CIM database for the logon session and account information for a specific process.
+.DESCRIPTION
+    Query the CIM database for the logon session and account information for a specific process by specifying a process Id.
+.EXAMPLE
+    PS C:\> Get-CimSession -Id 1 | Get-PsgProcessLogonSession -ProcessId 5588
+
+    ProcessId             : 5588
+    StartTime             : 12/21/2019 10:00:14 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 2921480
+    LogonIdHex            : 0x2921480
+    LogonType             : 2
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    ComputerName          : localhost
+
+    Get the logon session that relates to a specified process byt their process Id.
+.INPUTS
+    Microsoft.Management.Infrastructure.CimSession
+.OUTPUTS
+    PSGumshoe.LogonSession
+#>
 function Get-CimProcessLogonSession {
-    <#
-    .SYNOPSIS
-        Query the CIM database for the logon session and account infor for a specific process.
-    .DESCRIPTION
-        Query the CIM database for the logon session and account infor for a specific process by specifying a process Id.
-    .EXAMPLE
-        PS C:\> Get-CimSession -Id 1 | Get-PsgProcessLogonSession -ProcessId 5588
-
-        ProcessId             : 5588
-        StartTime             : 12/21/2019 10:00:14 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 2921480
-        LogonIdHex            : 0x2921480
-        LogonType             : 2
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        ComputerName          : localhost
-
-        Get the logon session that relates to a specified process byt their process Id.
-    .INPUTS
-        Microsoft.Management.Infrastructure.CimSession
-    .OUTPUTS
-        PSGumshoe.LogonSession
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
         # ProcessId to query for.

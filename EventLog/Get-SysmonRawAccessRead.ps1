@@ -1,14 +1,14 @@
+<#
+.SYNOPSIS
+    Get Sysmon Raw Access Read events (Event Id 9) from a local or remote host.
+.DESCRIPTION
+    Get Sysmon Raw Access Read events from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.RawAccess
+#>
 function Get-SysmonRawAccessRead {
-    <#
-    .SYNOPSIS
-        Get Sysmon Raw Access Read events (Event Id 9) from a local or remote host.
-    .DESCRIPTION
-        Get Sysmon Raw Access Read events from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.RawAccess
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -75,12 +75,12 @@ function Get-SysmonRawAccessRead {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

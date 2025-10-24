@@ -1,20 +1,28 @@
-
+<#
+.SYNOPSIS
+    Get Sysmon Network Connect events (EventId 3).
+.DESCRIPTION
+    The network connection event logs TCP/UDP connections on the machine. It is disabled by default.
+    Each connection is linked to a process through the ProcessId and ProcessGUID fields. The event
+    also contains the source and destination host names IP addresses, port numbers and IPv6 status.
+    Events are cached and logged every 15 seconds.
+.EXAMPLE
+    Get-SysmonNetworkConnect -Image 'powershell.exe' -Protocol 'TCP'
+    Returns all TCP connections initiated by PowerShell.
+.EXAMPLE
+    Get-SysmonNetworkConnect -Path 'C:\Logs\Sysmon.evtx' -DestinationIp '8.8.8.8'
+    Searches a local `.evtx` file for connections to 8.8.8.8.
+.EXAMPLE
+    Get-SysmonNetworkConnect -ComputerName 'Server01' -Credential (Get-Credential) -User 'DOMAIN\User'
+    Queries a remote system for network connections made by a specific user.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.NetworkConnect
+.NOTES
+    https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90003
+#>
 function Get-SysmonNetworkConnect {
-    <#
-    .SYNOPSIS
-        Get Sysmon Network Connect events (EventId 3).
-    .DESCRIPTION
-        The network connection event logs TCP/UDP connections on the machine. It is disabled by default. Each connection is linked to a process through the ProcessId and ProcessGUID fields. The event also contains the source and destination host names IP addresses, port numbers and IPv6 status. Events are cached and logged every 15 seconds.
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.NetworkConnect
-    .NOTES
-        https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90003
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -166,12 +174,12 @@ function Get-SysmonNetworkConnect {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

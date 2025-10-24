@@ -1,8 +1,8 @@
 <#
 .SYNOPSIS
-    Get a diresctory searcher object fro a given domain.
+    Get a directory searcher object fro a given domain.
 .DESCRIPTION
-    Get a diresctory searcher object fro a given domain.
+    Get a directory searcher object fro a given domain.
 .EXAMPLE
     C:\PS> $ADSearcher = Get-DSDirectorySearcher -Filter '(&(objectCategory=computer)(servicePrincipalName=MSSQLSvc*))'
     Create a DirectorySearcher object with a filter for searching for all computers with a servicePrincipalName for Microsoft SQL Server.

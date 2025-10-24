@@ -6,7 +6,6 @@
 .EXAMPLE
     converfrom-EventlogSDDL -SddlString (get-winventlog -LogName Security).SecurityDescriptor
 #>
-
 function ConvertFrom-EventlogSDDL {
     [CmdletBinding()]
     param (

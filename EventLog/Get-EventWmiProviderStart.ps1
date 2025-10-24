@@ -1,14 +1,14 @@
+<#
+.SYNOPSIS
+    Get WMI Provider Start events (EventId 5857).
+.DESCRIPTION
+    Get WMI Provider Start events (EventId 5857). from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    System.Management.Automation.PSCustomObject
+#>
 function Get-EventWmiProviderStart {
-    <#
-    .SYNOPSIS
-        Get WMI Provider Start events (EventId 5857).
-    .DESCRIPTION
-        Get WMI Provider Start events (EventId 5857). from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        System.Management.Automation.PSCustomObject
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -66,12 +66,12 @@ function Get-EventWmiProviderStart {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

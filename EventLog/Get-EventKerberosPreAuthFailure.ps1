@@ -1,19 +1,22 @@
+<#
+.SYNOPSIS
+    Retrieves Kerberos pre-authentication failure events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for Kerberos pre-authentication failure events (Event ID 4771) from the specified log name (defaults to "Security").
+    It supports filtering by user name, SID, ticket options, service name, pre-auth type, status and certificate details.
+    It can query local logs, remote computers or .evtx files. This is useful for auditing failed Kerberos authentication attempts,
+    which may indicate misconfigurations, expired credentials or malicious activity.
+.EXAMPLE
+    PS C:\> Get-EventKerberosPreAuthFailure -StartTime (Get-Date).AddHours(-12)
+    Retrieves Kerberos pre-authentication failure events from the last 12 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventKerberosPreAuthFailure -ComputerName "DC01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves Kerberos pre-authentication failures for user "jdoe" from a remote domain controller.
+.EXAMPLE
+    PS C:\> Get-EventKerberosPreAuthFailure -Path "C:\Logs\Security.evtx" -Status "0x18"
+    Retrieves Kerberos pre-authentication failures from an offline .evtx file filtered by status code.
+#>
 function Get-EventKerberosPreAuthFailure {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -107,12 +110,12 @@ function Get-EventKerberosPreAuthFailure {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

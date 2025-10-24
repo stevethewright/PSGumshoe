@@ -1,21 +1,25 @@
-
+<#
+.SYNOPSIS
+    Get Sysmon Remote Thread Creation events (EventId 8).
+.DESCRIPTION
+    The CreateRemoteThread event detects when a process creates a thread in another process.
+    This technique is used by malware to inject code and hide in other processes. The event
+    indicates the source and target process. It gives information on the code that will be run
+    in the new thread: StartAddress, StartModule and StartFunction. Note that StartModule and
+    StartFunction fields are inferred, they might be empty if the starting address is outside
+    loaded modules or known exported functions.
+.EXAMPLE
+    PS C:\> Get-SysmonCreateRemoteThreadEvent -SourceImage 'C:\Windows\System32\wbem\WmiPrvSE.exe' -Suppress
+    Find all events where the API CreateRemoteThread was used and the process image was not WmiPrvSE.exe.
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.CreateRemoteThread
+.NOTES
+    https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90008
+#>
 function Get-SysmonCreateRemoteThreadEvent {
-    <#
-    .SYNOPSIS
-        Get Sysmon Remote Thread Creation events (EventId 8).
-    .DESCRIPTION
-        The CreateRemoteThread event detects when a process creates a thread in another process. This technique is used by malware to inject code and hide in other processes. The event indicates the source and target process. It gives information on the code that will be run in the new thread: StartAddress, StartModule and StartFunction. Note that StartModule and StartFunction fields are inferred, they might be empty if the starting address is outside loaded modules or known exported functions.
-    .EXAMPLE
-        PS C:\> Get-SysmonCreateRemoteThreadEvent -SourceImage 'C:\Windows\System32\wbem\WmiPrvSE.exe' -Suppress
-        Find all events where the API CreateRemoteThread was used and the process image was not WmiPrvSE.exe.
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.CreateRemoteThread
-    .NOTES
-        https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90008
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -126,12 +130,12 @@ function Get-SysmonCreateRemoteThreadEvent {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

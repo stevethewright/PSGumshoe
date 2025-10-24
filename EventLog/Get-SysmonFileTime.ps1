@@ -1,20 +1,22 @@
-
+<#
+.SYNOPSIS
+    Get Sysmon File Creation Time events (EventId 2).
+.DESCRIPTION
+    The change file creation time event is registered when a file creation time is explicitly modified by a process.
+    This event helps tracking the real creation time of a file. Attackers may change the file creation time of a backdoor
+    to make it look like it was installed with the operating system. Note that many processes legitimately change the creation
+    time of a file; it does not necessarily indicate malicious activity.
+.EXAMPLE
+    PS C:\> Get-SysmonFileTime -Image 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe','C:\Windows\System32\RuntimeBroker.exe' -Suppress
+    Get all events where neither Chrome ot RuntimeBroker changed the creation time of an event.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.FileCreateTime
+.NOTES
+    https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90002
+#>
 function Get-SysmonFileTime {
-    <#
-    .SYNOPSIS
-        Get Sysmon File Creation Time events (EventId 2).
-    .DESCRIPTION
-        The change file creation time event is registered when a file creation time is explicitly modified by a process. This event helps tracking the real creation time of a file. Attackers may change the file creation time of a backdoor to make it look like it was installed with the operating system. Note that many processes legitimately change the creation time of a file; it does not necessarily indicate malicious activity.
-    .EXAMPLE
-        PS C:\> Get-SysmonFileTime -Image 'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe','C:\Windows\System32\RuntimeBroker.exe' -Suppress
-        Get all events where neither Chrome ot RuntimeBroker changed the creation time of an event.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.FileCreateTime
-    .NOTES
-        https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90002
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -90,12 +92,12 @@ function Get-SysmonFileTime {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

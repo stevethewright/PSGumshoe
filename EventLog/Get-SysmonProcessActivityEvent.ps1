@@ -1,15 +1,15 @@
+<#
+.SYNOPSIS
+    Get all or a specific set of Sysmon events for a given Process GUID.
+.DESCRIPTION
+    Get all or a specific set of Sysmon events for a given Process GUID.
+.EXAMPLE
+    PS C:\> Get-SysmonProcessActivityEvent -ProcessGuid '{278123BE-DE0D-5BBD-0000-0010D45C5E32}'
+    Find all events related to the specified process GUID.
+.INPUTS
+    System.IO.FileInfo
+#>
 function Get-SysmonProcessActivityEvent {
-    <#
-    .SYNOPSIS
-        Get all or a specific set of Sysmon events for a given Process GUID.
-    .DESCRIPTION
-        Get all or a specific set of Sysmon events for a given Process GUID.
-    .EXAMPLE
-        PS C:\> Get-SysmonProcessActivityEvent -ProcessGuid '{278123BE-DE0D-5BBD-0000-0010D45C5E32}'
-        Find all events related to the specified process GUID.
-    .INPUTS
-        System.IO.FileInfo
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.

@@ -1,64 +1,60 @@
+<#
+.SYNOPSIS
+    Query the CIM Object database for a list of processes on a target host.
+.DESCRIPTION
+    Query the CIM Object database for a list of processes on a target host. The function allows for
+    filtering so as to better target the desired processes.
+.EXAMPLE
+    PS C:\> Get-CimProcess -CimSession (Get-CimSession -Id 2) -ExecutablePath "C:\\User" 
+
+    ProcessId       : 4560
+    ParentProcessId : 4556
+    Name            : mimikatz.exe
+    ExecutablePath  : C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe
+    CommandLine     : "C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe" 
+    CreationDate    : 8/21/2019 4:56:05 PM
+    SessionId       : 1
+    ComputerName    : dc1
+
+    ProcessId       : 2284
+    ParentProcessId : 796
+    Name            : mimikatz.exe
+    ExecutablePath  : C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe
+    CommandLine     : "C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe" rpc::server service::me exit
+    CreationDate    : 8/21/2019 4:56:14 PM
+    SessionId       : 0
+    ComputerName    : dc1
+
+    Enumerate processes running under C:\Users folder.
+.EXAMPLE
+    PS C:\> Get-CimProcess -CimSession (Get-CimSession -Id 2) -CreatedBefore "9/1/2019" -CreatedAfter "8/20/2019"
+
+    Find processes that where created inside a given time window.
+.EXAMPLE
+    PS C:\>  Get-CimProcess -CimSession (Get-CimSession -Id 2) -SessionId 0 -name pse   
+
+    ProcessId       : 4800
+    ParentProcessId : 796
+    Name            : PSEXESVC.exe
+    ExecutablePath  : C:\Windows\PSEXESVC.exe
+    CommandLine     : C:\Windows\PSEXESVC.exe
+    CreationDate    : 8/17/2019 12:00:42 AM
+    SessionId       : 0
+    ComputerName    : dc1
+
+    Find processes started by SYSTEM (Always session ID 0) whose name contains *pse*
+.EXAMPLE
+    PS C:\> Get-CimProcess -CimSession (Get-CimSession -Id 2) -name conhost,powershell,cmd  
+
+    Query for all terminal processes on a system. 
+.INPUTS
+    Microsoft.Management.Infrastructure.CimSession
+.OUTPUTS
+    PSGumshoe.Process
+.NOTES
+    Pulling the process owner will have an impact on the speed of execution on large numbers of targets.
+#>
 function Get-CimProcess {
-    <#
-    .SYNOPSIS
-        Query the CIM Object database for a list of processes on a target host.
-    .DESCRIPTION
-        Query the CIM Object database for a list of processes on a target host. The function allows for
-        filtering so as to better target the desired processes.
-    .EXAMPLE
-        PS C:\> Get-CimProcess -CimSession (Get-CimSession -Id 2) -ExecutablePath "C:\\User" 
-
-
-        ProcessId       : 4560
-        ParentProcessId : 4556
-        Name            : mimikatz.exe
-        ExecutablePath  : C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe
-        CommandLine     : "C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe" 
-        CreationDate    : 8/21/2019 4:56:05 PM
-        SessionId       : 1
-        ComputerName    : dc1
-
-        ProcessId       : 2284
-        ParentProcessId : 796
-        Name            : mimikatz.exe
-        ExecutablePath  : C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe
-        CommandLine     : "C:\Users\Administrator\Desktop\mimikatz_trunk-2\x64\mimikatz.exe" rpc::server service::me exit
-        CreationDate    : 8/21/2019 4:56:14 PM
-        SessionId       : 0
-        ComputerName    : dc1
-
-        Enumerate processes running under C:\Users folder.
-    .EXAMPLE
-        PS C:\> Get-CimProcess -CimSession (Get-CimSession -Id 2) -CreatedBefore "9/1/2019" -CreatedAfter "8/20/2019"
-
-        Find processes that where created inside a given time window.
-
-    .EXAMPLE
-        PS C:\>  Get-CimProcess -CimSession (Get-CimSession -Id 2) -SessionId 0 -name pse   
-
-
-        ProcessId       : 4800
-        ParentProcessId : 796
-        Name            : PSEXESVC.exe
-        ExecutablePath  : C:\Windows\PSEXESVC.exe
-        CommandLine     : C:\Windows\PSEXESVC.exe
-        CreationDate    : 8/17/2019 12:00:42 AM
-        SessionId       : 0
-        ComputerName    : dc1
-
-        Find processes started by SYSTEM (Always session ID 0) whose name contains *pse*
-    .EXAMPLE
-        PS C:\> Get-CimProcess -CimSession (Get-CimSession -Id 2) -name conhost,powershell,cmd  
-
-        Query for all terminal processes on a system. 
-
-    .INPUTS
-        Microsoft.Management.Infrastructure.CimSession
-    .OUTPUTS
-        PSGumshoe.Process
-    .NOTES
-        Pulling the process owner will have an impact on the speed of execution on large numbers of targets.
-    #>
     [CmdletBinding(DefaultParameterSetName = "Local")]
     param (
         # Name or part of the process name to  query for.

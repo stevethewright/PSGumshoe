@@ -1,19 +1,23 @@
+<#
+.SYNOPSIS
+    Builds and executes a dynamic XML filter to query Sysmon event logs based on user-defined parameters.
+.DESCRIPTION
+    Constructs a flexible XML filter for querying Sysmon logs using Get-WinEvent.
+    It supports filtering by multiple Event IDs, custom field values, time ranges and log paths. The function also
+    supports remote querying with optional credentials and can suppress specific results using a Suppress filter block.
+    It outputs results in a structured format by piping them through a helper function ConvertFrom-SysmonEventLogRecord,
+    which is assumed to parse raw event log entries into a more readable object.
+.EXAMPLE
+    Search-SysmonEvent -ParamHash @{ Path = 'C:\Logs\Sysmon.evtx' } -EventId 1
+    Searches for Sysmon Event ID 1 in the specified log file.
+.EXAMPLE
+    Search-SysmonEvent -ParamHash @{ Path = 'C:\Logs\Sysmon.evtx'; Image = 'cmd.exe' } -EventId 1
+    Searches for Event ID 1 where the 'Image' field equals 'cmd.exe'.
+.EXAMPLE
+    Search-SysmonEvent -ParamHash @{ ComputerName = 'RemotePC'; Credential = (Get-Credential); Path = 'Microsoft-Windows-Sysmon/Operational' } -EventId 3
+    Queries Event ID 3 from a remote machine using provided credentials.
+#>
 function Search-SysmonEvent {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
         # Parameters of cmdlet using this helper function.

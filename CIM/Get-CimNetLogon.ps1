@@ -1,47 +1,43 @@
-function Get-CimNetLogon {
-    <#
-    .SYNOPSIS
-        Get Netlogon cached information entries for Windows 8/2012 or above systems leveraging CIM.
-    .DESCRIPTION
-        Get Netlogon cached information entries for Windows 8/2012 or above systems leveraging CIM. When ran
-        elevated or remotely as an adminitrator y provides all cached netlogon entries if not it will return
-        information for the System account and the cuser executing the query.
-    .EXAMPLE
-        PS C:\> Get-CimNetLogon
-
-        Name            : NT AUTHORITY\SYSTEM
-        Caption         : NT AUTHORITY\SYSTEM
-        LastLogon       : 
-        Comment         : 
-        NumberOfLogons  : 
-        Privileges      : 
-        PrimaryGroupId  : 
-        ScriptPath      : 
-        PasswordExpires : 
-        PasswordAge     : 
-        UserId          : 
-        Flags           : {}
-
-        Name            : ACMELABS\cperez
-        Caption         : cperez
-        LastLogon       : 1/9/2021 3:32:14 PM
-        Comment         : 
-        NumberOfLogons  : 487
-        Privileges      : Administrator
-        PrimaryGroupId  : 513
-        ScriptPath      : 
-        PasswordExpires :
-        PasswordAge     : 2.13:07:50
-        UserId          : 1618
-        Flags           : {PasswordNotExpires, NormalAccount}
-
-
-        Running localy in a none elevated window. 
-
-    .EXAMPLE
-
+<#
+.SYNOPSIS
+    Get Netlogon cached information entries for Windows 8/2012 or above systems leveraging CIM.
+.DESCRIPTION
+    Retrieves cached Netlogon profile information from the `Win32_NetworkLoginProfile`
+    WMI class using CIM. When run locally with administrative privileges or remotely with appropriate credentials,
+    it returns detailed information for all cached logon entries. Otherwise, it returns only entries accessible
+    to the current user context (typically SYSTEM and the current user).
+.EXAMPLE
     PS C:\> Get-CimNetLogon
 
+    Name            : NT AUTHORITY\SYSTEM
+    Caption         : NT AUTHORITY\SYSTEM
+    LastLogon       : 
+    Comment         : 
+    NumberOfLogons  : 
+    Privileges      : 
+    PrimaryGroupId  : 
+    ScriptPath      : 
+    PasswordExpires : 
+    PasswordAge     : 
+    UserId          : 
+    Flags           : {}
+
+    Name            : ACMELABS\cperez
+    Caption         : cperez
+    LastLogon       : 1/9/2021 3:32:14 PM
+    Comment         : 
+    NumberOfLogons  : 487
+    Privileges      : Administrator
+    PrimaryGroupId  : 513
+    ScriptPath      : 
+    PasswordExpires :
+    PasswordAge     : 2.13:07:50
+    UserId          : 1618
+    Flags           : {PasswordNotExpires, NormalAccount}
+
+    Running locally in a none elevated window. 
+.EXAMPLE
+    PS C:\> Get-CimNetLogon
 
     Name            : NT AUTHORITY\SYSTEM
     Caption         : NT AUTHORITY\SYSTEM
@@ -174,7 +170,8 @@ function Get-CimNetLogon {
     Flags           : {NormalAccount}
     
     Running the function from an elevated prompt. 
-    #>
+#>
+function Get-CimNetLogon {
     [CmdletBinding()]
     param (
         # CIMSession to perform query against

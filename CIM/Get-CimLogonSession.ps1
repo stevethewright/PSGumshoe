@@ -1,222 +1,217 @@
+<#
+.SYNOPSIS
+    Query the CIM Object database for a list of Logon Sessions and account related to session on a target host.
+.DESCRIPTION
+    Query the CIM Object database for a list of Logon Sessions and account related to session on a target host.
+.EXAMPLE
+    PS C:\> Get-CimLogonSession -IncludeProcess                                            
+
+    StartTime             : 12/21/2019 10:00:14 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 2921480
+    LogonIdHex            : 0x2c9408
+    LogonType             : 2
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             : {@{ProcessId=2408; ParentProcessId=428; Name=sihost.exe; 
+                            ExecutablePath=C:\WINDOWS\system32\sihost.exe; CommandLine=sihost.exe; CreationDate=12/21/2019 
+                            10:00:15 PM; SessionId=1; ComputerName=localhost}, @{ProcessId=1568; ParentProcessId=632; 
+                            Name=svchost.exe; ExecutablePath=C:\WINDOWS\system32\svchost.exe; 
+                            CommandLine=C:\WINDOWS\system32\svchost.exe -k UnistackSvcGroup; CreationDate=12/21/2019
+                            10:00:15 PM; SessionId=1; ComputerName=localhost}, @{ProcessId=4804; ParentProcessId=428; 
+                            Name=taskhostw.exe; ExecutablePath=C:\WINDOWS\system32\taskhostw.exe; CommandLine=taskhostw.exe  
+                            {222A245B-E637-4AE9-A93F-A59CA119A75E}; CreationDate=12/21/2019 10:00:15 PM; SessionId=1; 
+                            ComputerName=localhost}, @{ProcessId=3460; ParentProcessId=4432; Name=explorer.exe;
+                            ExecutablePath=C:\WINDOWS\Explorer.EXE; CommandLine=C:\WINDOWS\Explorer.EXE;
+                            CreationDate=12/21/2019 10:00:16 PM; SessionId=1; ComputerName=localhost}...}
+
+    StartTime             : 12/21/2019 10:00:14 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 2921444
+    LogonIdHex            : 0x2c93e4
+    LogonType             : 2
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             : {}
+
+    GetLogon sessions and include the processes for the sessions
+.EXAMPLE
+    Get-CimSession | Get-PsgLogonSession
+
+    StartTime             : 12/21/2019 10:00:14 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 2921480
+    LogonIdHex            : 0x2c9408
+    LogonType             : 2
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             :
+    ComputerName          : localhost
+
+    StartTime             : 12/21/2019 10:00:14 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 2921444
+    LogonIdHex            : 0x2c93e4
+    LogonType             : 2
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             : 
+    ComputerName          : localhost
+
+    StartTime             : 1/3/2020 4:05:21 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 328440214
+    LogonIdHex            : 0x13939996
+    LogonType             : 3
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             :
+    ComputerName          : dc1
+
+    StartTime             : 1/3/2020 4:03:01 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 328411060
+    LogonIdHex            : 0x139327b4
+    LogonType             : 3
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             :
+    ComputerName          : dc1
+
+    StartTime             : 1/3/2020 4:03:01 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 328410548
+    LogonIdHex            : 0x139325b4
+    LogonType             : 3
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             :
+    ComputerName          : dc1
+
+    StartTime             : 1/3/2020 3:58:56 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 328367485
+    LogonIdHex            : 0x13927d7d
+    LogonType             : 3
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             : 
+    ComputerName          : dc1
+
+    StartTime             : 1/3/2020 4:05:20 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 328439765
+    LogonIdHex            : 0x139397d5
+    LogonType             : 3
+    User                  : ACMELABS\cperez
+    FullName              : Carlos Perez
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             :
+    ComputerName          : dc1
+
+    StartTime             : 8/16/2019 11:57:22 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 628229
+    LogonIdHex            : 0x99605
+    LogonType             : 2
+    User                  : ACMELABS\Administrator
+    FullName              :
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-500
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             : 
+    ComputerName          : dc1
+
+    StartTime             : 8/16/2019 11:27:19 PM
+    AuthenticationPackage : Kerberos
+    LogonId               : 385611
+    LogonIdHex            : 0x5e24b
+    LogonType             : 3
+    User                  : ACMELABS\Administrator
+    FullName              :
+    SID                   : S-1-5-21-3150103098-694922503-2167627182-500
+    AccountType           : 512
+    LocalAccount          : False
+    PasswordChangeable    : True
+    PasswordRequired      : True
+    Lockout               : False
+    Disabled              : False
+    Processes             : 
+    ComputerName          : dc1
+
+    Get session information for all CIM Sessions.
+.INPUTS
+    Microsoft.Management.Infrastructure.CimSession
+.OUTPUTS
+    PSGumshoe.LogonSession
+#>
 function Get-CimLogonSession {
-    <#
-    .SYNOPSIS
-        Query the CIM Object database for a list of Logon Sessions and account related to session on a target host.
-    .DESCRIPTION
-        Query the CIM Object database for a list of Logon Sessions and account related to session on a target host.
-    .EXAMPLE
-        PS C:\> Get-CimLogonSession -IncludeProcess                                            
-
-
-        StartTime             : 12/21/2019 10:00:14 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 2921480
-        LogonIdHex            : 0x2c9408
-        LogonType             : 2
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             : {@{ProcessId=2408; ParentProcessId=428; Name=sihost.exe; 
-                                ExecutablePath=C:\WINDOWS\system32\sihost.exe; CommandLine=sihost.exe; CreationDate=12/21/2019 
-                                10:00:15 PM; SessionId=1; ComputerName=localhost}, @{ProcessId=1568; ParentProcessId=632; 
-                                Name=svchost.exe; ExecutablePath=C:\WINDOWS\system32\svchost.exe; 
-                                CommandLine=C:\WINDOWS\system32\svchost.exe -k UnistackSvcGroup; CreationDate=12/21/2019
-                                10:00:15 PM; SessionId=1; ComputerName=localhost}, @{ProcessId=4804; ParentProcessId=428; 
-                                Name=taskhostw.exe; ExecutablePath=C:\WINDOWS\system32\taskhostw.exe; CommandLine=taskhostw.exe  
-                                {222A245B-E637-4AE9-A93F-A59CA119A75E}; CreationDate=12/21/2019 10:00:15 PM; SessionId=1; 
-                                ComputerName=localhost}, @{ProcessId=3460; ParentProcessId=4432; Name=explorer.exe;
-                                ExecutablePath=C:\WINDOWS\Explorer.EXE; CommandLine=C:\WINDOWS\Explorer.EXE;
-                                CreationDate=12/21/2019 10:00:16 PM; SessionId=1; ComputerName=localhost}...}
-
-        StartTime             : 12/21/2019 10:00:14 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 2921444
-        LogonIdHex            : 0x2c93e4
-        LogonType             : 2
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             : {}
-
-        GetLogon sessions and include the processes for the sessions
-    
-    .EXAMPLE
-        Get-CimSession | Get-PsgLogonSession
-
-
-        StartTime             : 12/21/2019 10:00:14 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 2921480
-        LogonIdHex            : 0x2c9408
-        LogonType             : 2
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             :
-        ComputerName          : localhost
-
-        StartTime             : 12/21/2019 10:00:14 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 2921444
-        LogonIdHex            : 0x2c93e4
-        LogonType             : 2
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             : 
-        ComputerName          : localhost
-
-        StartTime             : 1/3/2020 4:05:21 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 328440214
-        LogonIdHex            : 0x13939996
-        LogonType             : 3
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             :
-        ComputerName          : dc1
-
-        StartTime             : 1/3/2020 4:03:01 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 328411060
-        LogonIdHex            : 0x139327b4
-        LogonType             : 3
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             :
-        ComputerName          : dc1
-
-        StartTime             : 1/3/2020 4:03:01 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 328410548
-        LogonIdHex            : 0x139325b4
-        LogonType             : 3
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             :
-        ComputerName          : dc1
-
-        StartTime             : 1/3/2020 3:58:56 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 328367485
-        LogonIdHex            : 0x13927d7d
-        LogonType             : 3
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             : 
-        ComputerName          : dc1
-
-        StartTime             : 1/3/2020 4:05:20 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 328439765
-        LogonIdHex            : 0x139397d5
-        LogonType             : 3
-        User                  : ACMELABS\cperez
-        FullName              : Carlos Perez
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-1618
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             :
-        ComputerName          : dc1
-
-        StartTime             : 8/16/2019 11:57:22 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 628229
-        LogonIdHex            : 0x99605
-        LogonType             : 2
-        User                  : ACMELABS\Administrator
-        FullName              :
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-500
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             : 
-        ComputerName          : dc1
-
-        StartTime             : 8/16/2019 11:27:19 PM
-        AuthenticationPackage : Kerberos
-        LogonId               : 385611
-        LogonIdHex            : 0x5e24b
-        LogonType             : 3
-        User                  : ACMELABS\Administrator
-        FullName              :
-        SID                   : S-1-5-21-3150103098-694922503-2167627182-500
-        AccountType           : 512
-        LocalAccount          : False
-        PasswordChangeable    : True
-        PasswordRequired      : True
-        Lockout               : False
-        Disabled              : False
-        Processes             : 
-        ComputerName          : dc1
-
-        Get session information for all CIM Sessions.
-    .INPUTS
-        Microsoft.Management.Infrastructure.CimSession
-    .OUTPUTS
-        PSGumshoe.LogonSession
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
         # CIMSession to perform query against

@@ -1,19 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves BITS transfer completion events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for Background Intelligent Transfer Service (BITS) job completion events (Event ID 4)
+    from the "Microsoft-Windows-Bits-Client/Operational" log. It supports filtering by job ID,
+    job title, job owner, user context and time range. It can query local logs, remote computers
+    or .evtx files. This is useful for auditing file transfer operations performed by BITS,
+    commonly used by Windows Update, SCCM and other background services.
+.EXAMPLE
+    PS C:\> Get-EventBitsTransferComplete -StartTime (Get-Date).AddDays(-1)
+    Retrieves BITS transfer completion events from the past day on the local system.
+.EXAMPLE
+    PS C:\> Get-EventBitsTransferComplete -ComputerName "Client01" -Credential (Get-Credential) -JobOwner "DOMAIN\User01"
+    Retrieves BITS job completion events for a specific user from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventBitsTransferComplete -Path "C:\Logs\BitsClient.evtx" -JobId "12345678-90ab-cdef-1234-567890abcdef"
+    Retrieves BITS job completion events from an offline .evtx file filtered by job ID.
+#>
 function Get-EventBitsTransferComplete {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -40,7 +44,7 @@ function Get-EventBitsTransferComplete {
         [string[]]
         $JobId,
 
-        # User that is the ownder of the BITS job. Exmp. <Domain>\<user>
+        # User that is the owner of the BITS job. E.g. <Domain>\<user>
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -83,12 +87,12 @@ function Get-EventBitsTransferComplete {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

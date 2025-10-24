@@ -1,19 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves scheduled task start events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for scheduled task start events (Event ID 200) from the
+    "Microsoft-Windows-TaskScheduler/Operational" log. It supports
+    filtering by task name, action name, task instance ID and time range.
+    It can query local logs, remote computers or .evtx files.
+    This is useful for auditing task execution and troubleshooting scheduled task behavior.
+.EXAMPLE
+    PS C:\> Get-EventScheduledTaskStart -StartTime (Get-Date).AddHours(-2)
+    Retrieves scheduled task start events from the last 2 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventScheduledTaskStart -ComputerName "Server01" -Credential (Get-Credential) -TaskName "BackupTask"
+    Retrieves start events for the "BackupTask" scheduled task from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventScheduledTaskStart -Path "C:\Logs\TaskScheduler.evtx" -ActionName "RunBackup.ps1"
+    Retrieves task start events from an offline .evtx file filtered by action name.
+#>
 function Get-EventScheduledTaskStart {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -22,13 +26,13 @@ function Get-EventScheduledTaskStart {
         [string]
         $LogName = 'Microsoft-Windows-TaskScheduler/Operational',
 
-        # Name of scheduledtask. 
+        # Name of scheduled task. 
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
         $TaskName,
 
-        # Scheduledtask action.
+        # Scheduled task action.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -77,12 +81,12 @@ function Get-EventScheduledTaskStart {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

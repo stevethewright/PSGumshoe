@@ -1,25 +1,22 @@
+<#
+.SYNOPSIS
+    Gets process create details from event 4688.
+.DESCRIPTION
+    Queries for process creation events (Event ID 4688) from the Security log. It supports filtering by
+    various fields such as user SID, domain, process name, parent process, command line, logon ID and
+    integrity level. The function can query local logs, remote systems or `.evtx` files and supports
+    logic inversion and suppression filtering.
+.EXAMPLE
+    PS C:\> Get-EventProcessCreate -TokenElevationType "%%1937"
+    Gets all processes started with a full token
+.EXAMPLE
+    PS C:\> Get-EventProcessCreate -CommandLine "C:\windows\temp\evil.exe"
+    Gets information about the process that executed the evil.exe file
+.EXAMPLE
+    PS C:\> Get-EventProcessCreate -NewProcessName "C:\windows\system32\svchost.exe" | Sort-Object -Property CommandLine -Unique | ft CommandLine -AutoSize
+    Gets all unique command line parameters for the svchost.exe process
+#>
 function Get-EventProcessCreate {
-    <#
-    .SYNOPSIS
-        Gets process create details from event 4688
-    .DESCRIPTION
-        Gets process create details from event 4688
-    .EXAMPLE
-        PS C:\> Get-EventProcessCreate -TokenElevationType "%%1937"
-        Gets all processes started with a full token
-    .EXAMPLE
-        PS C:\> Get-EventProcessCreate -CommandLine "C:\windows\temp\evil.exe"
-        Gets information about the process that executed the evil.exe file
-    .EXAMPLE
-        PS C:\> Get-EventProcessCreate -NewProcessName "C:\windows\system32\svchost.exe" | Sort-Object -Property CommandLine -Unique | ft CommandLine -AutoSize
-        Gets all unique command line parameters for the svchost.exe process
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -164,12 +161,12 @@ function Get-EventProcessCreate {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

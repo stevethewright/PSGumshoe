@@ -1,19 +1,17 @@
 <#
 .SYNOPSIS
-    Tunrs a list of ID or Objects passed via the pipeline in to a MITRE Attack Navigator JSON file.
+    Turns a list of ID or Objects passed via the pipeline in to a MITRE Attack Navigator JSON file.
 .DESCRIPTION
-    Tunrs a list of ID or Objects passed via the pipeline in to a MITRE Attack Navigator JSON file.
+    Turns a list of ID or Objects passed via the pipeline in to a MITRE Attack Navigator JSON file.
     Main purpose is when working with a CSV file where one enters Technique/Tactic ID's,
-    Comments and a Score to then pipe in to the cmmdlet to turn in to a JSON that can be used by the
-    MITRE Attck Navigator for displaying the information in a layer.
-.NOTES
-    Information or caveats about the function e.g. 'This function is not supported in Linux'
+    Comments and a Score to then pipe in to the cmdlet to turn in to a JSON that can be used by the
+    MITRE Attack Navigator for displaying the information in a layer.
 .EXAMPLE
-    Import-Csv .\Desktop\Lockbit3.csv | New-NavigatorJson -Path .\Desktop\lockbit.json 
+    Import-Csv .\Desktop\Lockbit3.csv | New-NavigatorJson -Path .\Desktop\lockbit.json
     Turns a CSV with the fields Id for the techniqueID and comment in to a MITRE Attck Navigator Json file.
 .EXAMPLE
     New-NavigatorJson -Name "Pentest Daily Technique D3" -path .\dayly3.json -Id @('T1134','T1612','T1548.001') -Color Purple -Comment "actions of day 3"
-    Maually generate a a layer using a list of Technique IDs. 
+    Manually generate a a layer using a list of Technique IDs.
 #>
 function New-NavigatorJson {
     [CmdletBinding()]

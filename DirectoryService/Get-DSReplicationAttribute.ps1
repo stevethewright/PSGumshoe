@@ -1,17 +1,20 @@
 <#
 .SYNOPSIS
-    Short description
+    Retrieves replication metadata attributes for a specified Active Directory object.
 .DESCRIPTION
-    Long description
+    Queries a domain controller for replication metadata associated with a specific object in
+    Active Directory. It supports querying the local domain controller, a remote one using 
+    credentials, or an alternate context. The metadata includes attribute versions, timestamps,
+    and originating server information. Optionally, it can also retrieve linked member metadata.
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
-.INPUTS
-    Inputs (if any)
-.OUTPUTS
-    Output (if any)
-.NOTES
-    General notes
+    PS C:\> Get-DSReplicationAttribute -ObjectDN "CN=John Doe,OU=Users,DC=example,DC=com"
+    Retrieves replication metadata for the specified object using the current domain context.
+.EXAMPLE
+    PS C:\> Get-DSReplicationAttribute -ComputerName "DC01" -Credential (Get-Credential) -ObjectDN "CN=John Doe,OU=Users,DC=example,DC=com"
+    Retrieves replication metadata from a remote domain controller using provided credentials.
+.EXAMPLE
+    PS C:\> Get-DSReplicationAttribute -Credential (Get-Credential) -ObjectDN "CN=GroupA,OU=Groups,DC=example,DC=com" -IncludeMember
+    Retrieves replication metadata and linked member information for a group object using alternate credentials.
 #>
 function Get-DSReplicationAttribute {
     [CmdletBinding(DefaultParameterSetName = 'Current')]

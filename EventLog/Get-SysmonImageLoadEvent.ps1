@@ -1,20 +1,19 @@
-
+<#
+.SYNOPSIS
+    Get Sysmon Image Load events (EventId 7).
+.DESCRIPTION
+    The image loaded event logs when a module is loaded in a specific process.
+.EXAMPLE
+    PS C:\> Get-SysmonImageLoadEvent -ImageLoaded 'C:\Windows\System32\wshom.ocx'
+    Find all processes that loaded the wshom.ocx image that provides functions like wsh.shell to scripts and scriptlets.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.ImageLoad
+.NOTES
+    https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90007
+#>
 function Get-SysmonImageLoadEvent {
-    <#
-    .SYNOPSIS
-        Get Sysmon Image Load events (EventId 7).
-    .DESCRIPTION
-        The image loaded event logs when a module is loaded in a specific process.
-    .EXAMPLE
-        PS C:\> Get-SysmonImageLoadEvent -ImageLoaded 'C:\Windows\System32\wshom.ocx'
-        Find all processes that loaded the wshom.ocx image that provides functions like wsh.shell to scripts and scriptlets.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.ImageLoad
-    .NOTES
-        https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90007
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -140,12 +139,12 @@ function Get-SysmonImageLoadEvent {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,
