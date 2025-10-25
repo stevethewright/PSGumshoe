@@ -17,6 +17,21 @@
     Searches for Event ID 1001 from 'Application Error' in a local log file, excluding events where the message is 'chrome.exe'.
 #>
 function Search-EventLogEventData {
+    <#
+    .SYNOPSIS
+        Internal function for searching events with a keyed flat Event Data structure.
+    .DESCRIPTION
+        Internal function for searching events with a keyed flat Event Data structure.
+    .EXAMPLE
+        PS C:\> <example usage>
+        Explanation of what the example does
+    .INPUTS
+        Inputs (if any)
+    .OUTPUTS
+        Output (if any)
+    .NOTES
+        General notes
+    #>
     [CmdletBinding()]
     param (
         # Parameters of cmdlet using this helper function.
@@ -52,7 +67,6 @@ function Search-EventLogEventData {
     begin {
 
         # Get paramters for use in creating the filter.
-        #$Params = $MyInvocation.BoundParameters.Keys
         [System.Collections.ArrayList]$Params = $ParamHash.keys
         $CommonParams = ([System.Management.Automation.Cmdlet]::CommonParameters) + @('Credential', 'ComputerName', 'MaxEvents', 'StartTime', 'EndTime', 'Path', 'ChangeLogic','ActivityType','Suppress')
 
@@ -178,7 +192,7 @@ function Search-EventLogEventData {
             ('ComputerName') {
                $ParamHash['ComputerName'] | ForEach-Object {
                    Write-Verbose -Message "Querying $($_)"
-                   if ($Params -notcontains $Credential) {
+                   if ($Params -notcontains 'Credential') {
                         if ($MaxEvents -gt 0) {
                            if ($ReturnRecord) {
                                 Get-WinEvent -FilterXml $BaseFilter -MaxEvents $MaxEvents -ComputerName $_ -ErrorAction SilentlyContinue
