@@ -1,16 +1,16 @@
+<#
+.SYNOPSIS
+    Get Sysmon events for when the creation of PE file is detected (EventId 29).
+.DESCRIPTION
+    Get Sysmon events for when the creation of PE file is detected (EventId 29).
+    This event is tracked when event type FileExecutableDetected is enabled and
+    Sysmon detects a file being created with a MZ PE file header. 
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.FileExecutableDetected
+#>
 function Get-SysmonFileExecutableDetected {
-    <#
-    .SYNOPSIS
-        Get Sysmon events for when the creation of PE file is detected (EventId 29).
-    .DESCRIPTION
-        Get Sysmon events for when the creation of PE file is detected (EventId 29). This event is tracked when event type FileExecutableDetected is enabled and Sysmon detects a file being created with a MZ PE file header. 
-    .EXAMPLE
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.FileExecutableDetected
-    .NOTES
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -90,12 +90,12 @@ function Get-SysmonFileExecutableDetected {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

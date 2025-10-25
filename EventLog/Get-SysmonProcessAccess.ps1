@@ -1,20 +1,20 @@
+<#
+.SYNOPSIS
+    Get Sysmon Access Process EventLog Events (EventId 10).
+.DESCRIPTION
+    Get Sysmon Process Access events either locally or remotely from a specified location.
+    These events have an EventID of 10 and are for when a process accesses the memory space
+    of a given process.
+.EXAMPLE
+    PS C:\> Get-SysmonProcessAccess -TargetImage "C:\Windows\System32\lsass.exe"
+    Check if any process has opened lsass.exe. This may be a malicious process trying to dump password hashes.
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.ProcessAccess
+#>
 function Get-SysmonProcessAccess {
-    <#
-    .SYNOPSIS
-        Get Sysmon Access Procces EventLog Events (EventId 10).
-    .DESCRIPTION
-        Get Sysmon Process Access events either locally or remotely from a specified location.
-        These events have an EventID of 10 and are for when a process acceses the memory space
-        of a given process.
-    .EXAMPLE
-        PS C:\> Get-SysmonProcessAccess -TargetImage "C:\Windows\System32\lsass.exe"
-        Check if any process has opened lsass.exe. This may be a malicious process trying to dump password hashes.
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.ProcessAccess
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -23,7 +23,7 @@ function Get-SysmonProcessAccess {
         [string]
         $LogName = 'Microsoft-Windows-Sysmon/Operational',
 
-        # The GUID value created by Sysmon that uniquely and universally identifies the process instance accesing a target process.
+        # The GUID value created by Sysmon that uniquely and universally identifies the process instance accessing a target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -35,7 +35,7 @@ function Get-SysmonProcessAccess {
         [string[]]
         $SourceProcessId,
 
-        # The thread ID of the source process that identifies the process instance accesing a target process.
+        # The thread ID of the source process that identifies the process instance accessing a target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -53,13 +53,13 @@ function Get-SysmonProcessAccess {
         [string[]]
         $TargetImage,
 
-        # The permission granted to the sourced process when accesing the target process.
+        # The permission granted to the sourced process when accessing the target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
         $GrantedAccess,
 
-        # The call traced of the source procees acceing the target process.
+        # The call traced of the source process accessing the target process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -102,12 +102,12 @@ function Get-SysmonProcessAccess {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

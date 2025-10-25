@@ -1,18 +1,18 @@
+<#
+.SYNOPSIS
+    Get Sysmon Name Pipe connection events (EventId 18).
+.DESCRIPTION
+    This event logs when a named pipe connection is made between a client and a server
+.EXAMPLE
+    PS C:\> Get-SysmonConnectedPipe -ComputerName wec1.contoso.com -LogName "Forwarded Events"
+    Query remote Windows Event Collector server for Named Pipes connection events.
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.PipeConnected
+#>
 function Get-SysmonConnectNamedPipe {
-    <#
-    .SYNOPSIS
-        Get Sysmon Name Pipe connection events (EventId 18).
-    .DESCRIPTION
-        This event logs when a named pipe connection is made between a client and a server
-    .EXAMPLE
-        PS C:\> Get-SysmonConnectedPipe -ComputerName wec1.contoso.com -LogName "Forwarded Events"
-        Query remote Windows Event Collector server for Named Pipes connection events.
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.PipeConnected
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -39,7 +39,7 @@ function Get-SysmonConnectNamedPipe {
         [string[]]
         $Image,
 
-        # Name of the pipe created by the propcess.
+        # Name of the pipe created by the process.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -87,12 +87,12 @@ function Get-SysmonConnectNamedPipe {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

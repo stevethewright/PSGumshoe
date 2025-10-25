@@ -1,17 +1,17 @@
+<#
+.SYNOPSIS
+    Get WMI Temporary Event Start events (EventId 5860).
+.DESCRIPTION
+    Get WMI Temporary Event Start events (EventId 5860). from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    System.Management.Automation.PSCustomObject
+.NOTES
+    Operation Types https://docs.microsoft.com/en-us/windows/win32/api/wbemcli/nn-wbemcli-iwbemservices
+    Result Codes https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-error-constants?redirectedfrom=MSDN
+#>
 function Get-EventWmiTemporaryEvent {
-    <#
-    .SYNOPSIS
-        Get WMI Temporary Event Start events (EventId 5860).
-    .DESCRIPTION
-        Get WMI Temporary Event Start events (EventId 5860). from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        System.Management.Automation.PSCustomObject
-    .NOTES
-        Operation Types https://docs.microsoft.com/en-us/windows/win32/api/wbemcli/nn-wbemcli-iwbemservices
-        Result Codes https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-error-constants?redirectedfrom=MSDN
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -87,12 +87,12 @@ function Get-EventWmiTemporaryEvent {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,
@@ -106,7 +106,7 @@ function Get-EventWmiTemporaryEvent {
     begin {}
 
     process {
-        Search-EventLogUsertData -EventId 5860 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $MyInvocation.BoundParameters | ForEach-Object {
+        Search-EventLogUserData -EventId 5860 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $MyInvocation.BoundParameters | ForEach-Object {
             [xml]$evtxml = $_.toxml()
             $ProcInfo = [ordered]@{}
             $ProcInfo['EventId'] = $evtxml.Event.System.EventID

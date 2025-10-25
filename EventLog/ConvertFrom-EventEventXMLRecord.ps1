@@ -1,3 +1,16 @@
+<#
+.SYNOPSIS
+    Parses a raw EventLogRecord object into a structured PowerShell object using XML.
+.DESCRIPTION
+    Takes a System.Diagnostics.Eventing.Reader.EventLogRecord object, converts it to XML
+    and extracts key fields from both the System and UserData sections. The result is returned
+    as a custom PowerShell object with named properties for easier consumption and analysis.
+.EXAMPLE
+    Get-WinEvent -LogName 'Microsoft-Windows-Sysmon/Operational' -MaxEvents 1 | ConvertFrom-EventEventXMLRecord
+    Parses the most recent Sysmon event into a structured object.
+.INPUTS
+    System.Diagnostics.Eventing.Reader.EventLogRecord
+#>
 function ConvertFrom-EventEventXMLRecord {
     [CmdletBinding()]
     param (

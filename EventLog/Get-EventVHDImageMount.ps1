@@ -1,34 +1,34 @@
+<#
+.SYNOPSIS
+    Get Microsoft-Windows-VHDMP-Operational events for when a ISO, VHD, VHDX or CMGS image is mounted on Windows 8 and above systems.
+.DESCRIPTION
+    Get Microsoft-Windows-VHDMP-Operational events for when a ISO, VHD, VHDX or CMGS image is mounted on Windows 8 and above systems.
+.EXAMPLE
+    PS C:\> Get-EventVHDImageMount 
+    
+    EventId       : 12
+    EventRecordID : 26502
+    TimeCreated   : 2/1/2023 10:09:33 AM
+    Computer      : DESKTOP-LH0AJLB
+    Provider      : Microsoft-Windows-VHDMP
+    ProcessID     : 11560
+    ThreadID      : 17800
+    UserSID       : S-1-5-21-2697533880-3473899400-4136494737-1001
+    Status        : 0
+    VhdFile       : \\?\C:\Users\Carlos Perez\Downloads\support.iso
+    VmId          : {00000000-0000-0000-0000-000000000000}
+    VhdType       : 3
+    Version       : 1
+    Flags         : 0
+    AccessMask    : 851968
+    WriteDepth    : 0
+    GetInfoOnly   : false
+    ReadOnly      : false
+    HandleContext : 0xffffa504b1e885c0
+    VirtualDisk   : 0xffffa504cbf5e040
+    FileObject    : 0xffffa504cc31b9b0
+#>
 function Get-EventVHDImageMount {
-    <#
-    .SYNOPSIS
-        Get Microsoft-Windows-VHDMP-Operational events for when a ISO, VHD, VHDX or CMGS image is mounted on Windows 8 and above systems.
-    .DESCRIPTION
-        Get Microsoft-Windows-VHDMP-Operational events for when a ISO, VHD, VHDX or CMGS image is mounted on Windows 8 and above systems.
-    .EXAMPLE
-        PS C:\> Get-EventVHDImageMount 
-        
-        EventId       : 12
-        EventRecordID : 26502
-        TimeCreated   : 2/1/2023 10:09:33 AM
-        Computer      : DESKTOP-LH0AJLB
-        Provider      : Microsoft-Windows-VHDMP
-        ProcessID     : 11560
-        ThreadID      : 17800
-        UserSID       : S-1-5-21-2697533880-3473899400-4136494737-1001
-        Status        : 0
-        VhdFile       : \\?\C:\Users\Carlos Perez\Downloads\support.iso
-        VmId          : {00000000-0000-0000-0000-000000000000}
-        VhdType       : 3
-        Version       : 1
-        Flags         : 0
-        AccessMask    : 851968
-        WriteDepth    : 0
-        GetInfoOnly   : false
-        ReadOnly      : false
-        HandleContext : 0xffffa504b1e885c0
-        VirtualDisk   : 0xffffa504cbf5e040
-        FileObject    : 0xffffa504cc31b9b0
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -79,12 +79,12 @@ function Get-EventVHDImageMount {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

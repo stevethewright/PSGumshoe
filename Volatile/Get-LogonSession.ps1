@@ -1,8 +1,23 @@
 <#
-Author: Lee Christensen (@tifkin_)
-License: BSD 3-Clause
-Required Dependencies: None
-Optional Dependencies: None
+.SYNOPSIS
+    Retrieve detailed information about a specific logon session by Logon ID.
+.DESCRIPTION
+    Queries WMI to retrieve information about a specific logon session using its Logon ID.
+    It maps the session to a user and domain and provides details such as logon type,
+    authentication package, start time and more. This function is useful for correlating logon
+    events (e.g., Event ID 4624) with session metadata.
+.EXAMPLE
+    PS C:\> Get-LogonSession -LogonId 999999
+    Returns information about the logon session with ID 999999, including the user, domain, logon type, and start time.
+.INPUTS
+    System.UInt32
+.OUTPUTS
+    PSCustomObject
+.NOTES
+    Author: Lee Christensen (@tifkin_)
+    License: BSD 3-Clause
+    Required Dependencies: None
+    Optional Dependencies: None
 #>
 function Get-LogonSession {
     param(

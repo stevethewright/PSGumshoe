@@ -1,19 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves BITS transfer start events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for Background Intelligent Transfer Service (BITS) job start events (Event ID 59)
+    from the "Microsoft-Windows-Bits-Client/Operational" log. It supports filtering by job ID,
+    job title, URL and time range. It can query local logs, remote computers or .evtx files.
+    This is useful for auditing the initiation of background file transfers performed by BITS,
+    commonly used by Windows Update, SCCM and other services.
+.EXAMPLE
+    PS C:\> Get-EventBitsTransferStart -StartTime (Get-Date).AddHours(-6)
+    Retrieves BITS transfer start events from the last 6 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventBitsTransferStart -ComputerName "Client01" -Credential (Get-Credential) -JobTitle "UpdateJob"
+    Retrieves BITS job start events with the specified job title from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventBitsTransferStart -Path "C:\Logs\BitsClient.evtx" -Url "https://updates.contoso.com/file.exe"
+    Retrieves BITS job start events from an offline .evtx file filtered by URL.
+#>
 function Get-EventBitsTransferStart {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -77,12 +81,12 @@ function Get-EventBitsTransferStart {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

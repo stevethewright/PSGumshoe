@@ -1,14 +1,14 @@
+<#
+.SYNOPSIS
+    Get Sysmon Registry Set Value events (Event Id 13) from a local or remote host.
+.DESCRIPTION
+    Get Sysmon Registry Set Value events from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.RegistrySetValue
+#>
 function Get-SysmonRegistrySetValue {
-    <#
-    .SYNOPSIS
-        Get Sysmon Registry Set Value events (Event Id 13) from a local or remote host.
-    .DESCRIPTION
-        Get Sysmon Registry Set Value events from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.RegistrySetValue
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -79,12 +79,12 @@ function Get-SysmonRegistrySetValue {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

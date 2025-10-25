@@ -13,7 +13,7 @@
     to the domain.
 .EXAMPLE
     C:\PS> Get-DSForest
-    Gets the forest for the domain the host is corrently joined to.
+    Gets the forest for the domain the host is currently joined to.
 .EXAMPLE
     C:\PS> Get-DSForest -ComputerName dc01.acmelabs.com -Credential (Get-Credential user1)
     Connect to a remote domain controller and get the forest for domain it manages using the
@@ -25,7 +25,7 @@
     System.DirectoryServices.ActiveDirectory.Forest
 .NOTES
     This function is heavily dependent on DNS. The host running the function is highly
-    recomended to be using the same DNS server as the domain whe are querying.
+    recommended to be using the same DNS server as the domain whe are querying.
 #>
 function Get-DSForest {
     [CmdletBinding(DefaultParameterSetName = 'Current')]

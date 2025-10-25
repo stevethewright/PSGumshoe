@@ -1,11 +1,10 @@
 ﻿<#
-.Synopsis
+.SYNOPSIS
    Get Organizational Units objects in a given directory service.
 .DESCRIPTION
    Get Organizational Units objects in a given directory service.
 .EXAMPLE
     Get-DSOU -GpoGuid '6AC1786C-016F-11D2-945F-00C04fB984F9'
-
     Get all OUs that have the specified GPO linked to them.
 #>
 function Get-DSOU

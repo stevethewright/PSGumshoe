@@ -1,19 +1,24 @@
+<#
+.SYNOPSIS
+    Get Sysmon File Stream Creation events (EventId 15).
+.DESCRIPTION
+    This event logs when a named file stream is created, and it generates events
+    that log the hash of the contents of the file to which the stream is assigned (the unnamed stream),
+    as well as the contents of the named stream. There are malware variants that drop their executables
+    or configuration settings via browser downloads, and this event is aimed at capturing that based on
+    the browser attaching a Zone.Identifier “mark of the web” stream. This event also logs the creation
+    of alternate data streams where a files hides another in the alternate data stream of another.
+.EXAMPLE
+    PS C:\> Get-SysmonFileStreamHash  -Image 'C:\WINDOWS\system32\cmd.exe'
+    Find all streams created from cmd.exe.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.FileCreateStreamHash
+.NOTES
+    https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90015
+#>
 function Get-SysmonFileStreamHash {
-    <#
-    .SYNOPSIS
-        Get Sysmon File Stream Creation events (EventId 15).
-    .DESCRIPTION
-        This event logs when a named file stream is created, and it generates events that log the hash of the contents of the file to which the stream is assigned (the unnamed stream), as well as the contents of the named stream. There are malware variants that drop their executables or configuration settings via browser downloads, and this event is aimed at capturing that based on the browser attaching a Zone.Identifier “mark of the web” stream. This event also logs the creation of alternate data streams where a files hides another in the alternate data stream of another.
-    .EXAMPLE
-        PS C:\> Get-SysmonFileStreamHash  -Image 'C:\WINDOWS\system32\cmd.exe'
-        Find all streams created from cmd.exe.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.FileCreateStreamHash
-    .NOTES
-        https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90015
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -95,12 +100,12 @@ function Get-SysmonFileStreamHash {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

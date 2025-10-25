@@ -1,14 +1,14 @@
+<#
+.SYNOPSIS
+    Get Sysmon WMI Filtering events (Event Id 19) from a local or remote host.
+.DESCRIPTION
+    Get Sysmon WMI Filtering events from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.WmiFiltering
+#>
 function Get-SysmonWmiFilter {
-    <#
-    .SYNOPSIS
-        Get Sysmon WMI Filtering events (Event Id 19) from a local or remote host.
-    .DESCRIPTION
-        Get Sysmon WMI Filtering events from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.WmiFiltering
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -84,12 +84,12 @@ function Get-SysmonWmiFilter {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

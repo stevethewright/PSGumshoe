@@ -1,19 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves scheduled task completion events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for scheduled task completion events (Event ID 102) from the
+    "Microsoft-Windows-TaskScheduler/Operational" log. It supports filtering
+    by task name, user context, task instance ID and time range. It can query
+    local logs, remote computers or .evtx files. This is useful for auditing
+    task outcomes and correlating with task start and stop events.
+.EXAMPLE
+    PS C:\> Get-EventScheduledTaskComplete -StartTime (Get-Date).AddHours(-3)
+    Retrieves scheduled task completion events from the last 3 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventScheduledTaskComplete -ComputerName "Server01" -Credential (Get-Credential) -TaskName "BackupTask"
+    Retrieves completion events for the "BackupTask" scheduled task from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventScheduledTaskComplete -Path "C:\Logs\TaskScheduler.evtx" -UserContext "SYSTEM"
+    Retrieves task completion events from an offline .evtx file filtered by user context.
+#>
 function Get-EventScheduledTaskComplete {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -22,7 +26,7 @@ function Get-EventScheduledTaskComplete {
         [string]
         $LogName = 'Microsoft-Windows-TaskScheduler/Operational',
 
-        # Name of scheduledtask. 
+        # Name of scheduled task.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -77,12 +81,12 @@ function Get-EventScheduledTaskComplete {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

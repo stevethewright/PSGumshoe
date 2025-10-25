@@ -1,25 +1,25 @@
+<#
+.SYNOPSIS
+    Get a hash for the currently configured Sysmon rules on a host.
+.DESCRIPTION
+    Get a hash for the currently configured Sysmon rules on a host. The hash is generated from
+    the binary value found under the driver configuration.
+.EXAMPLE
+    PS C:\> Get-SysmonRuleHash -HashAlgorithm SHA1
+
+    ComputerName    DriverName Hash
+    ------------    ---------- ----
+    DESKTOP-4TVLVMD SysmonDrv  5FCE2EA1583DBBD5B141EFD04BA36209F5AFE1FC
+
+    Generate a SHA1 for the ruleset on the current host.
+.INPUTS
+    String
+.OUTPUTS
+    PSCustomObject
+.NOTES
+    General notes
+#>
 function Get-SysmonRuleHash {
-    <#
-    .SYNOPSIS
-        Get a hash for the currently configured Sysmon rules on a host.
-    .DESCRIPTION
-        Get a hash for the currently configured Sysmon rules on a host. The hash is generated from
-        the binary value found under the driver configuration.
-    .EXAMPLE
-        PS C:\> Get-SysmonRuleHash -HashAlgorithm SHA1
-
-        ComputerName    DriverName Hash
-        ------------    ---------- ----
-        DESKTOP-4TVLVMD SysmonDrv  5FCE2EA1583DBBD5B141EFD04BA36209F5AFE1FC
-
-        Generate a SHA1 for the ruleset on the current host.
-    .INPUTS
-        String
-    .OUTPUTS
-        PSCustomObject
-    .NOTES
-        General notes
-    #>
     [CmdletBinding( DefaultParameterSetName = "UseComputer")]
     param (
         # Name of Sysmon driver.

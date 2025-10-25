@@ -1,11 +1,21 @@
 <#
 .SYNOPSIS
-    Short description
+    Retrieves trust relationships for domains or forests in Active Directory.
 .DESCRIPTION
-    Long description
+    Queries Active Directory to retrieve trust relationships either for all domains in the current 
+    forest or for a specified forest. It supports querying the current domain context,a remote domain
+    controller, or another forest using credentials. The trust type can be specified as either 'Domain' or 'Forest'.
 .EXAMPLE
-    PS C:\> <example usage>
-    Explanation of what the example does
+    PS C:\> Get-DSTrust
+    Retrieves all domain trust relationships in the current forest context.
+.EXAMPLE
+    PS C:\> Get-DSTrust -ComputerName "DC01" -Credential (Get-Credential)
+    Retrieves all domain trust relationships from a remote domain controller using provided credentials.
+.EXAMPLE
+    PS C:\> Get-DSTrust -ComputerName "DC01" -Credential (Get-Credential) -ForestName "otherforest.local" -TrustType "Forest"
+    Retrieves forest-level trust relationships from a specified forest using credentials and a remote domain controller.
+.OUTPUTS
+    System.DirectoryServices.ActiveDirectory.TrustRelationshipInformation
 #>
 function Get-DSTrust {
     [CmdletBinding(DefaultParameterSetName = 'Current')]

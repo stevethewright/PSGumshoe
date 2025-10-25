@@ -1,16 +1,24 @@
+<#
+.SYNOPSIS
+    Get Windows PowerShell Iter Process Communication events.
+.DESCRIPTION
+    Retrieves PowerShell IPC events (Event ID 53504) from the
+    "Microsoft-Windows-PowerShell/Operational" log. These events
+    can be useful for identifying PowerShell activity even when
+    runspace start/end events have been cleared, making it
+    valuable for forensic or threat hunting scenarios.
+    The function supports filtering by time range, maximum number
+    of events and remote computer access using credentials.
+.EXAMPLE
+    PS C:\> Get-EventPsIPC
+    Retrieves all PowerShell IPC events from the local system's operational log.
+.EXAMPLE
+    PS C:\> Get-EventPsIPC -StartTime (Get-Date).AddDays(-1) -MaxEvents 50 -ComputerName 'Server01' -Credential (Get-Credential)
+    Retrieves the last 50 PowerShell IPC events from the past 24 hours on a remote system using alternate credentials.
+.NOTES
+    This function needs to be executed with administrator privileges on the host.
+#>
 function Get-EventPsIPC {
-    <#
-    .Synopsis
-    Get Windows PowerShell Iter Prpcess Communication events.
-    .DESCRIPTION
-    Get Windows PowerShell IPC events. This is useful in tracking if PS was used in the case the runspace start and end events are cleared.
-    .EXAMPLE
-    Example of how to use this cmdlet
-    .EXAMPLE
-    Another example of how to use this cmdlet
-    .NOTES
-    This function needs to be executed with administrator priviages on the host.
-    #>
     [CmdletBinding()]
     [Alias()]
     [OutputType([PSObject])]
@@ -72,10 +80,10 @@ function Get-EventPsIPC {
     Begin {}
     Process {
 
-       # Hash for filtering
+        # Hash for filtering
         $HashFilter = @{LogName=$LogName; Id=53504; ProviderName='Microsoft-Windows-PowerShell'}
 
-        # Hash for command paramteters
+        # Hash for command parameters
         $ParamHash = @{}
 
         if ($MaxEvents -gt 0)

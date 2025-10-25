@@ -1,19 +1,21 @@
+<#
+.SYNOPSIS
+    Retrieves successful system logon events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for successful logon events (Event ID 4624) from the "Security" log. It supports filtering by logon type,
+    authentication package, NTLM sub-package, IP address, user details and time range. The cmdlet can query local logs,
+    remote computers or .evtx files. It also maps impersonation levels and boolean values for easier interpretation.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogon -StartTime (Get-Date).AddDays(-1)
+    Retrieves successful logon events from the past day on the local system.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogon -ComputerName "DC01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves logon events for user "jdoe" from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogon -Path "C:\Logs\Security.evtx" -EventLogonType "Interactive"
+    Retrieves interactive logon events from an offline .evtx file.
+#>
 function Get-EventSystemLogon {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -141,12 +143,12 @@ function Get-EventSystemLogon {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

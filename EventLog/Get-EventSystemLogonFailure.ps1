@@ -1,19 +1,21 @@
+<#
+.SYNOPSIS
+    Retrieves failed system logon events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for failed logon events (Event ID 4625) from the "Security" log. It supports filtering by logon type,
+    authentication package, NTLM sub-package, IP address, user details and time range. The cmdlet can query local logs,
+    remote computers or .evtx files.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogonFailure -StartTime (Get-Date).AddHours(-6)
+    Retrieves failed logon events from the last 6 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogonFailure -ComputerName "DC01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves failed logon attempts for user "jdoe" from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogonFailure -Path "C:\Logs\Security.evtx" -EventLogonType "Network"
+    Retrieves failed network logon events from an offline .evtx file.
+#>
 function Get-EventSystemLogonFailure {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -117,12 +119,12 @@ function Get-EventSystemLogonFailure {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

@@ -1,13 +1,20 @@
 <#
 .SYNOPSIS
-    Get group objects in a given directory service.
+    Retrieves Active Directory group objects with advanced filtering options.
 .DESCRIPTION
-    Get group objects in a given directory service.
+    Queries Active Directory for group objects using a flexible set of filters.
+    It supports querying the current domain, a remote domain controller or an alternate domain using credentials.
+    Filters include group name, creation/modification dates, group category (Security or Distribution), admin count
+    and more. It returns detailed group objects with parsed properties including group type and scope.
 .EXAMPLE
-    C:\PS> <example usage>
-    Explanation of what the example does
-.NOTES
-General notes
+    PS C:\> Get-DSGroup -Name "Domain Admins"
+    Retrieves the "Domain Admins" group from the current domain.
+.EXAMPLE
+    PS C:\> Get-DSGroup -ComputerName "DC01" -Credential (Get-Credential) -Category Security -AdminCount
+    Retrieves security groups with admin count set from a remote domain controller using provided credentials.
+.EXAMPLE
+    PS C:\> Get-DSGroup -CreatedAfter (Get-Date).AddDays(-30)
+    Retrieves groups created in the last 30 days.
 #>
 function Get-DSGroup {
     [CmdletBinding(DefaultParameterSetName='Current')]

@@ -1,17 +1,17 @@
+<#
+.SYNOPSIS
+    Get WMI Filter to Consumer binding events (EventId 5861).
+.DESCRIPTION
+    Get WMI Operation Failure events (EventId 5861). from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    System.Management.Automation.PSCustomObject
+.NOTES
+    Operation Types https://docs.microsoft.com/en-us/windows/win32/api/wbemcli/nn-wbemcli-iwbemservices
+    Result Codes https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-error-constants?redirectedfrom=MSDN
+#>
 function Get-EventWmiPermanentEvent {
-    <#
-    .SYNOPSIS
-        Get WMI Filter to Consumer binding events (EventId 5861).
-    .DESCRIPTION
-        Get WMI Operation Failure events (EventId 5861). from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        System.Management.Automation.PSCustomObject
-    .NOTES
-        Operation Types https://docs.microsoft.com/en-us/windows/win32/api/wbemcli/nn-wbemcli-iwbemservices
-        Result Codes https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmi-error-constants?redirectedfrom=MSDN
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -26,13 +26,13 @@ function Get-EventWmiPermanentEvent {
         [string[]]
         $Namespace,
 
-        # Consumer that was binded with the filter.
+        # Consumer that was bound to the filter.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
         $Consumer,
 
-        # Filter that was binded with the consumer.
+        # Filter that was bound to the consumer.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -75,12 +75,12 @@ function Get-EventWmiPermanentEvent {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,
@@ -109,7 +109,7 @@ function Get-EventWmiPermanentEvent {
 
     process {
         
-        Search-EventLogUsertData -EventId 5861 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $Params | ForEach-Object {
+        Search-EventLogUserData -EventId 5861 -Provider "Microsoft-Windows-WMI-Activity" -ReturnRecord -SubElement -ParamHash $Params | ForEach-Object {
             [xml]$evtxml = $_.toxml()
             $ProcInfo = [ordered]@{}
             $ProcInfo['EventId'] = $evtxml.Event.System.EventID

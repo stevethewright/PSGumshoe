@@ -1,30 +1,28 @@
+<#
+.SYNOPSIS
+    Get Sysmon Process Tampering events (Event Id 25) from a local or remote host.
+.DESCRIPTION
+    Get Sysmon Process Tampering events from a local or remote host. Events can be filtered by fields.
+.EXAMPLE
+    PS C:\> Get-SysmonProcessTampering | select image -Unique
 
+    Image
+    -----
+    <unknown process>
+    C:\Program Files\Git\cmd\git.exe
+    C:\Program Files\Git\mingw64\bin\git.exe
+    C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+    C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+    C:\Users\cperez\AppData\Local\Programs\Microsoft VS Code\Code.exe
+    C:\Windows\System32\conhost.exe
+
+    Get unique images for use in exclusion filter. 
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.ProcessTamper
+#>
 function Get-SysmonProcessTampering {
-    <#
-    .SYNOPSIS
-        Get Sysmon Process Tampering events (Event Id 25) from a local or remote host.
-    .DESCRIPTION
-        Get Sysmon Process Tampering events from a local or remote host. Events can be filtered by fields.
-    .EXAMPLE
-        PS C:\> Get-SysmonProcessTampering | select image -Unique
-
-        Image
-        -----
-        <unknown process>
-        C:\Program Files\Git\cmd\git.exe
-        C:\Program Files\Git\mingw64\bin\git.exe
-        C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
-        C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-        C:\Users\cperez\AppData\Local\Programs\Microsoft VS Code\Code.exe
-        C:\Windows\System32\conhost.exe
-
-        Get unique images for use in exclusion filter. 
-
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.ProcessTamper
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -77,12 +75,12 @@ function Get-SysmonProcessTampering {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

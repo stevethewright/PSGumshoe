@@ -1,18 +1,15 @@
+<#
+.SYNOPSIS
+	Gets named pipes on the local computer.
+.DESCRIPTION
+	Provides a list of all named pipes currently available on the local system.
+	It queries the `\\.\pipe\` namespace and returns each pipe as a custom object with a `NamedPipe` property.
+	This can be useful for diagnostics, monitoring inter-process communication, or identifying suspicious activity.
+.EXAMPLE
+	PS C:\> Get-NamedPipe
+	Lists all named pipes currently present on the local system.
+#>
 function Get-NamedPipe {
-	<#
-		.SYNOPSIS
-			Gets named pipes on local computer.
-
-		.DESCRIPTION
-			Gets named pipes on the local computer.
-
-		.EXAMPLE
-			PS C:\> Get-PsgNamedPipes
-
-		.NOTES
-			Additional information about the function.
-	#>
-
   [CmdletBinding()]
 	[OutputType([PSObject])]
 	param ()
