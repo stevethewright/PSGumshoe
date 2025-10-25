@@ -1,27 +1,13 @@
-function Get-InjectedThread {
-    <#
-
-    .SYNOPSIS
-
+<#
+.SYNOPSIS
     Looks for threads that were created as a result of code injection.
-
-    .DESCRIPTION
-
+.DESCRIPTION
     Memory resident malware (fileless malware) often uses a form of memory injection to get code execution. Get-InjectedThread looks at each running thread to determine if it is the result of memory injection.
-
     Common memory injection techniques that *can* be caught using this method include:
     - Classic Injection (OpenProcess, VirtualAllocEx, WriteProcessMemory, CreateRemoteThread)
     - Reflective DLL Injection
     - Process Hollowing
-
-    NOTE: Nothing in security is a silver bullet. An attacker could modify their tactics to avoid detection using this methodology.
-
-    .NOTES
-
-    Author - Jared Atkinson (@jaredcatkinson)
-
-    .EXAMPLE
-
+.EXAMPLE
     PS > Get-InjectedThread
 
     ProcessName               : ThreadStart.exe
@@ -48,9 +34,11 @@ function Get-InjectedThread {
     BaseAddress               : 4390912
     Size                      : 4096
     Bytes                     : {144, 195, 0, 0...}
-
-    #>
-
+.NOTES
+    Nothing in security is a silver bullet. An attacker could modify their tactics to avoid detection using this methodology.
+    Author - Jared Atkinson (@jaredcatkinson)
+#>
+function Get-InjectedThread {
     [CmdletBinding()]
     param ()
 

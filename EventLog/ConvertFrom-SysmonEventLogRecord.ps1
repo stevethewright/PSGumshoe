@@ -1,19 +1,25 @@
+<#
+.SYNOPSIS
+    Converts a raw Sysmon EventLogRecord into a structured PowerShell object.
+.DESCRIPTION
+    Takes a raw EventLogRecord object from the Sysmon event log and parses it into a structured PowerShell
+    object with named properties. It maps the Event ID to a human-readable Sysmon event type and extracts
+    all event data fields into a hashtable for easy access. The resulting object is tagged with a custom
+    type name based on the Sysmon event type.
+.EXAMPLE
+    PS C:\> Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 10 |
+    >>     Where-Object { $_.Id -eq 1 } |
+    >>     ConvertFrom-SysmonEventLogRecord
+    Converts the latest 10 Sysmon process creation events into structured PowerShell objects.
+.EXAMPLE
+    PS C:\> $event = Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 1
+    PS C:\> $parsed = $event | ConvertFrom-SysmonEventLogRecord
+    PS C:\> $parsed.EventType
+    Retrieves the event type (e.g., "ProcessCreate") from a single Sysmon event.
+.INPUTS
+    System.Diagnostics.Eventing.Reader.EventLogRecord
+#>
 function ConvertFrom-SysmonEventLogRecord {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
         # Event Log Record Object

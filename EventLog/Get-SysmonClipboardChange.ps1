@@ -1,18 +1,18 @@
+<#
+.SYNOPSIS
+    Get Sysmon Clipboard Change events (EventId 18).
+.DESCRIPTION
+    This event logs when a program changes the content of the clipboard.
+.EXAMPLE
+    PS C:\> Get-SysmonClipboardChange -ComputerName wec1.contoso.com -LogName "Forwarded Events" -Image "C:\Windows\System32\rdpclip.exe"
+    Query remote Windows Event Collector server for clipboard change events from an RDP connection.
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.ClipboardChange
+#>
 function Get-SysmonClipboardChange {
-    <#
-    .SYNOPSIS
-        Get Sysmon Clipboard Change events (EventId 18).
-    .DESCRIPTION
-        This event logs when a program changes the content of the clipboard.
-    .EXAMPLE
-        PS C:\> Get-SysmonClipboardChange -ComputerName wec1.contoso.com -LogName "Forwarded Events" -Image "C:\Windows\System32\rdpclip.exe"
-        Query remote Windows Event Collector server for clipboard change events from an RDP connection.
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.ClipboardChange
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -100,12 +100,12 @@ function Get-SysmonClipboardChange {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

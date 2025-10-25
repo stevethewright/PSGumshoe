@@ -1,20 +1,20 @@
-function Export-WinEvent {
-    <#
-    .SYNOPSIS
-        Export events that match a given query in to a Evtx file.
-    .DESCRIPTION
-        Export events that match a given query in to a Evtx file. Supports as source a log by Log Name or from another Evtx file. Query has to be in XPath format.
-    .EXAMPLE
-        PS C:\> [string]$query = $($Output = Get-SysmonProcessAccess -TargetImage "C:\WINDOWS\system32\lsass.exe" -verbose -MaxEvents 1) 4>&1
-        PS C:\> Export-WinEvent -SourcePath "Microsoft-Windows-Sysmon/Operational" -Path C:\LSASSProcessAccess.evtx -Query $query
+<#
+.SYNOPSIS
+    Export events that match a given query in to a Evtx file.
+.DESCRIPTION
+    Export events that match a given query in to a Evtx file. Supports as source a log by Log Name or from another Evtx file. Query has to be in XPath format.
+.EXAMPLE
+    PS C:\> [string]$query = $($Output = Get-SysmonProcessAccess -TargetImage "C:\WINDOWS\system32\lsass.exe" -verbose -MaxEvents 1) 4>&1
+    PS C:\> Export-WinEvent -SourcePath "Microsoft-Windows-Sysmon/Operational" -Path C:\LSASSProcessAccess.evtx -Query $query
 
-        Capture the XPath query from one of the Sysmon PSGumshoe functions and use that to export the resulting events into a file.
-        Technique also works with Get-WinEvent.
-    .INPUTS
-        System.String
-    .NOTES
-        Xpath Query EventLog use and limitations https://docs.microsoft.com/en-us/windows/win32/wes/consuming-events
-    #>
+    Capture the XPath query from one of the Sysmon PSGumshoe functions and use that to export the resulting events into a file.
+    Technique also works with Get-WinEvent.
+.INPUTS
+    System.String
+.NOTES
+    Xpath Query EventLog use and limitations https://docs.microsoft.com/en-us/windows/win32/wes/consuming-events
+#>
+function Export-WinEvent {
     [CmdletBinding(DefaultParameterSetName = "Local")]
     param (
         # Source to export from.

@@ -1,19 +1,28 @@
 
+<#
+.SYNOPSIS
+    Get Sysmon DNS Query events (EventId 22).
+.DESCRIPTION
+    Retrieves DNS query events (Event ID 22) from Sysmon logs. It supports querying from local logs,
+    remote systems or `.evtx` files. You can filter results by fields such as ProcessId, ProcessGuid,
+    Image, QueryName, QueryStatus and QueryResults. The function delegates the actual event filtering
+    to the Search-SysmonEvent helper function.
+.EXAMPLE
+    Get-SysmonDNSQuery -QueryName '*.example.com'
+    Returns all DNS queries for domains ending in `.example.com`.
+.EXAMPLE
+    Get-SysmonDNSQuery -Path 'C:\Logs\Sysmon.evtx' -Image 'powershell.exe'
+    Searches a local `.evtx` file for DNS queries made by PowerShell.
+.EXAMPLE
+    Get-SysmonDNSQuery -ComputerName 'Server01' -Credential (Get-Credential) -QueryStatus 0
+    Queries a remote system for successful DNS queries (QueryStatus = 0).
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.DNSQuery
+#>
 function Get-SysmonDNSQuery {
-    <#
-    .SYNOPSIS
-        Get Sysmon DNS Query events (EventId 22).
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.DNSQuery
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -91,12 +100,12 @@ function Get-SysmonDNSQuery {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

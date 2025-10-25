@@ -10,7 +10,7 @@
     System.DirectoryServices.ActiveDirectory.Domain
 .NOTES
     This function is heavily dependent on DNS. The host running the function is highly
-    recomended to be using the same DNS server as the domain whe are querying.
+    recommended to be using the same DNS server as the domain whe are querying.
 #>
 function Get-DSDomain {
     [CmdletBinding(DefaultParameterSetName = 'Current')]

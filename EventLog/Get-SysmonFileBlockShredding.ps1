@@ -1,16 +1,16 @@
+<#
+.SYNOPSIS
+    Get Sysmon File Block Shredding (EventId 28).
+.DESCRIPTION
+    File block executable operations are logged when a rule that blocks a file being
+    shredded by overwriting multiple times. This event is useful for knowing when an
+    attacker tries to wipe files to cover their actions.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.FileBlockShredding
+#>
 function Get-SysmonFileBlockShredding {
-    <#
-    .SYNOPSIS
-        Get Sysmon File Block Shredding (EventId 28).
-    .DESCRIPTION
-        File block executable operations are logged when a rule that blocks a file being shredded by overwritting multiple times. This event is useful for knowing when a attacker tries to wipe files to cover their actions.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.FileBlockShredding
-    .NOTES
-        
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -85,12 +85,12 @@ function Get-SysmonFileBlockShredding {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

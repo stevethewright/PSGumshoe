@@ -1,19 +1,22 @@
+<#
+.SYNOPSIS
+    Get Sysmon File Creation events (EventId 11).
+.DESCRIPTION
+    File create operations are logged when a file is created or overwritten.
+    This event is useful for monitoring autostart locations, like the Startup folder,
+    as well as temporary and download directories, which are common places malware drops
+    during initial infection.
+.EXAMPLE
+    PS C:\> Get-SysmonFileCreateEvent -Image 'C:\Windows\System32\certutil.exe'
+    Find events where certutil created a file on the machine.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.FileCreate
+.NOTES
+    https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90011
+#>
 function Get-SysmonFileCreateEvent {
-    <#
-    .SYNOPSIS
-        Get Sysmon File Creation events (EventId 11).
-    .DESCRIPTION
-        File create operations are logged when a file is created or overwritten. This event is useful for monitoring autostart locations, like the Startup folder, as well as temporary and download directories, which are common places malware drops during initial infection.
-    .EXAMPLE
-        PS C:\> Get-SysmonFileCreateEvent -Image 'C:\Windows\System32\certutil.exe'
-        Find events where certutil created a file on the machine.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.FileCreate
-    .NOTES
-        https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90011
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -88,12 +91,12 @@ function Get-SysmonFileCreateEvent {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

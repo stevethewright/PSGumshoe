@@ -1,23 +1,23 @@
+<#
+.SYNOPSIS
+    Generate xpath filters for fields on a specified Event Log Entry.
+.DESCRIPTION
+    Parses Event Log Entries to make usable Windows Event log
+    filtering xpath for Windows Event Filters and Windows Eventlog Forwarding
+.EXAMPLE
+    PS C:\> Get-WinEventBaseXPathFilter -EventId 4624 -LogName security
 
+    Parses the first event with id 4624 in the security eventlog.
+.INPUTS
+    System.Int32 (EventId or EventRecordID)
+    System.String (LogName)
+.OUTPUTS
+    System.String
+.NOTES
+    Port of script Written 5/22/2015 – Kurt Falde
+    Modified from original to have more accurate filtering on elements with attributes, plus other minor improvements.
+#>
 function Get-WinEventBaseXPathFilter {
-    <#
-    .SYNOPSIS
-        Generate xpath filters for fields on a specified Event Log Entry.
-    .DESCRIPTION
-        Parses Event Log Entries to make usable Windows Event log
-        filtering xpath for Windows Event Filters and Windows Eventlog Forwarding
-    .EXAMPLE
-        PS C:\> Get-WinEventBaseXPathFilter -EventId 4624 -LogName security
-
-        Parses the first event with id 4624 in the security eventlog.
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        Port of script Written 5/22/2015 – Kurt Falde
-        Modified from original to have more accurate filtering on elements with attributes, plus other minor improvements.
-    #>
     [CmdletBinding(DefaultParameterSetName='EventID')]
     [OutputType([String])]
     Param (

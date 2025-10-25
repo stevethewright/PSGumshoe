@@ -1,19 +1,28 @@
+<#
+.SYNOPSIS
+    Queries Windows service information using CIM.
+.DESCRIPTION
+    Retrieves information about Windows services or drivers using WMI classes via CIM (Common Information Model).
+    It supports filtering by service name, display name, description, path, state, start mode and service type.
+    You can query both user-mode services (Win32_Service) and drivers (Win32_SystemDriver) and optionally include
+    file information or run the query against remote systems using CimSessions.
+.EXAMPLE
+    Get-CimService -Name 'wuauserv'
+    
+    Returns information about the Windows Update service.
+.EXAMPLE
+    Get-CimService -DisplayName '*Update*' -State 'Running' -StartMode 'Auto'
+
+    Finds all running services with 'Update' in their display name that are set to start automatically.
+.EXAMPLE
+    $session = New-CimSession -ComputerName 'Server01'
+    Get-CimService -CimSession $session -Type Driver -ServiceType 'Kernel Driver'
+
+    Queries kernel-mode drivers on a remote system using a CIM session.
+.OUTPUTS
+    Microsoft.Management.Infrastructure.CimInstance
+#>
 function Get-CimService {
-    <#
-    .SYNOPSIS
-         Queries via CIM Windows Service Information.
-    .DESCRIPTION
-        Queries via CIM Windows Service Information.
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
         [Parameter(mandatory=$false)]

@@ -1,28 +1,28 @@
+<#
+.SYNOPSIS
+    Get DNS Cache entries for Windows 8/2012 or above systems leveraging CIM.
+.DESCRIPTION
+    Get DNS Cache entries for Windows 8/2012 or above systems leveraging CIM.
+.EXAMPLE
+    PS C:\> Get-CimDNSCache -Name *acmelabs* -Type A
+
+    Name         : dc1.acmelabs.pvt
+    Entry        : dc1.acmelabs.pvt
+    Data         : 10.120.120.2
+    DataLength   : 4
+    Section      : Answer
+    Status       : Success
+    TimeToLive   : 1774
+    Type         : A
+    ComputerName : CL01
+
+    Get DNSCache entries where the name contains the string acmelabs and are for DNS record type A.
+.INPUTS
+    Microsoft.Management.Infrastructure.CimSession
+.OUTPUTS
+    PSGumshoe.Process
+#>
 function Get-CimDnsCache {
-    <#
-    .SYNOPSIS
-        Get DNS Cache entries for Windows 8/2012 or above systems leveraging CIM.
-    .DESCRIPTION
-        Get DNS Cache entries for Windows 8/2012 or above systems leveraging CIM.
-    .EXAMPLE
-        PS C:\> Get-CimDNSCache -Name *acmelabs* -Type A
-
-        Name         : dc1.acmelabs.pvt
-        Entry        : dc1.acmelabs.pvt
-        Data         : 10.120.120.2
-        DataLength   : 4
-        Section      : Answer
-        Status       : Success
-        TimeToLive   : 1774
-        Type         : A
-        ComputerName : CL01
-
-        Get DNSCache entries where the name contains the string acmelabs and are for DNS record type A.
-    .INPUTS
-        Microsoft.Management.Infrastructure.CimSession
-    .OUTPUTS
-        PSGumshoe.Process
-    #>
     [CmdletBinding(DefaultParameterSetName = "Local")]
     param (
         # CIMSession to perform query against

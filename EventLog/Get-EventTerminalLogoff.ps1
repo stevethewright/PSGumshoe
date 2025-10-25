@@ -1,3 +1,22 @@
+<#
+.SYNOPSIS
+    Retrieves Terminal Services logoff events from local, remote, or offline event logs.
+.DESCRIPTION
+    Searches for Terminal Services logoff events (Event ID 24)from the
+    "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" log. It supports
+    filtering by user name, IP address and time range. It can query local logs, remote
+    computers or .evtx files. This is useful for auditing Remote Desktop session terminations and
+    tracking user session activity on terminal servers.
+.EXAMPLE
+    PS C:\> Get-EventTerminalLogoff -StartTime (Get-Date).AddHours(-4)
+    Retrieves Terminal Services logoff events from the last 4 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventTerminalLogoff -ComputerName "RDS01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves Terminal Services logoff events for user "jdoe" from a remote session host.
+.EXAMPLE
+    PS C:\> Get-EventTerminalLogoff -Path "C:\Logs\Terminal.evtx" -IpAddress "192.168.1.100"
+    Retrieves Terminal Services logoff events from an offline .evtx file filtered by source IP address.
+#>
 function Get-EventTerminalLogoff {
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
@@ -56,12 +75,12 @@ function Get-EventTerminalLogoff {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

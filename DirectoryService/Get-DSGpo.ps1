@@ -5,7 +5,7 @@
    Get all GPO objects or those that match the specified properties.
 .EXAMPLE
    PS C:\> Get-DSGpo -ModifiedAfter (Get-Date).AddMonths(-1)
-   Find all GPO Objects mofied in the last 30 days. 
+   Find all GPO Objects modified in the last 30 days. 
 .EXAMPLE
    PS C:\> Get-DSGpo -ModifiedAfter (Get-Date).AddMonths(-1) -UserExtension "*35378EAC-683F-11D2-A89A-00C04FBBCFA2*"
    Find GPOs with the specified User Extension GUID.

@@ -1,21 +1,21 @@
 
+<#
+.SYNOPSIS
+    Get Sysmon configuration change events (EventId 16).
+.DESCRIPTION
+    Get Sysmon configuration change events either locally or remotely from a specified location.
+    These events have an EventID of 16 and are for when a configuration is updated or cleared using
+    the sysmon.exe tool.
+.EXAMPLE
+    PS C:\> Get-SysmonConfigChange -ConfigurationFileHash ''
+    Get events with a empty configuration file hash field. This may be due to a configuration being modified or cleared via the command line.
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.ConfigChange
+#>
 function Get-SysmonConfigChange {
-    <#
-    .SYNOPSIS
-        Get Sysmon configuration change events (EventId 16).
-    .DESCRIPTION
-        Get Sysmon configuration change events either locally or remotely from a specified location.
-        These events have an EventID of 16 and are for when a configuration is updated or cleared using
-        the sysmon.exe tool.
-    .EXAMPLE
-        PS C:\> Get-SysmonConfigChange -ConfigurationFileHash ''
-        Get events with a empty configuration file hash field. This may be due to a configuration being modified or cleared via the command line.
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.ConfigChange
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -25,7 +25,7 @@ function Get-SysmonConfigChange {
         $LogName = 'Microsoft-Windows-Sysmon/Operational',
 
         # Full path of XML file used for configuration, current folder of the process and full command line of execution for configuration or
-        # currentlocation with the word Default at the end of the path in case the configuration was reset to default values.
+        # current location with the word Default at the end of the path in case the configuration was reset to default values.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -79,12 +79,12 @@ function Get-SysmonConfigChange {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

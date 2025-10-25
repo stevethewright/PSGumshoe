@@ -1,19 +1,23 @@
+<#
+.SYNOPSIS
+    Retrieves Kerberos TGT request events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for Kerberos Ticket Granting Ticket (TGT) request events (Event ID 4768) from the
+    specified log name (defaults to "Security"). It supports filtering by user name, SID, ticket options,
+    service name, pre-authentication type, encryption type, status and certificate details. It can query
+    local logs, remote computers or .evtx files. This is useful for auditing Kerberos authentication
+    requests and identifying patterns in ticket issuance.
+.EXAMPLE
+    PS C:\> Get-EventKerberosTGTRequest -StartTime (Get-Date).AddHours(-6)
+    Retrieves Kerberos TGT request events from the last 6 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventKerberosTGTRequest -ComputerName "DC01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves Kerberos TGT requests for user "jdoe" from a remote domain controller.
+.EXAMPLE
+    PS C:\> Get-EventKerberosTGTRequest -Path "C:\Logs\Security.evtx" -TicketEncryptionType "0x12"
+    Retrieves Kerberos TGT requests from an offline .evtx file filtered by encryption type.
+#>
 function Get-EventKerberosTGTRequest {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -112,12 +116,12 @@ function Get-EventKerberosTGTRequest {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

@@ -1,35 +1,34 @@
+<#
+.SYNOPSIS
+    Get Sysmon DNS Query events (EventId 6).
+.DESCRIPTION
+    The driver loaded events provides information about a driver being loaded on the system. 
+    The configured hashes are provided as well as signature information. The signature is 
+    created asynchronously for performance reasons and indicates if the file was removed 
+    after loading.
+.EXAMPLE
+    PS C:\> Get-SysmonDriverLoadEvent -SignatureStatus Expired
+
+    EventId         : 6
+    EventType       : DriverLoad
+    Computer        : DESKTOP-4TVLVMD
+    EventRecordID   : 12173822
+    RuleName        : -
+    UtcTime         : 2020-05-25 18:52:41.327
+    ImageLoaded     : C:\Users\carlos\Desktop\mimikatz\x64\mimidrv.sys
+    Hashes          : MD5=26AEDC10D4215BA997495D3A68355F4A
+    Signed          : false
+    Signature       : -
+    SignatureStatus : Expired
+
+    Search for expired driver. Example of the Mimikatz driver loading.
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.DriverLoad
+#>
 function Get-SysmonDriverLoadEvent {
-    <#
-    .SYNOPSIS
-        Get Sysmon DNS Query events (EventId 6).
-    .DESCRIPTION
-        The driver loaded events provides information about a driver being loaded on the system. 
-        The configured hashes are provided as well as signature information. The signature is 
-        created asynchronously for performance reasons and indicates if the file was removed 
-        after loading.
-    .EXAMPLE
-        PS C:\> Get-SysmonDriverLoadEvent -SignatureStatus Expired
-
-
-        EventId         : 6
-        EventType       : DriverLoad
-        Computer        : DESKTOP-4TVLVMD
-        EventRecordID   : 12173822
-        RuleName        : -
-        UtcTime         : 2020-05-25 18:52:41.327
-        ImageLoaded     : C:\Users\carlos\Desktop\mimikatz\x64\mimidrv.sys
-        Hashes          : MD5=26AEDC10D4215BA997495D3A68355F4A
-        Signed          : false
-        Signature       : -
-        SignatureStatus : Expired
-
-        Search for expired driver. Example of the Mimikatz driver loading.
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.DriverLoad
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -107,12 +106,12 @@ function Get-SysmonDriverLoadEvent {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

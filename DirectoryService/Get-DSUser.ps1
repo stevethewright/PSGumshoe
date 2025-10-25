@@ -1,11 +1,20 @@
 <#
-  .SYNOPSIS
-    Get user objects in a given directory service.
-  .DESCRIPTION
-    Get user objects in a given directory service.
-  .EXAMPLE
-    C:\PS> <example usage>
-    Explanation of what the example does
+.SYNOPSIS
+    Retrieves user objects from Active Directory with advanced filtering options.
+.DESCRIPTION
+    Queries Active Directory for user accounts using a flexible and powerful set of filters.
+    It supports querying the current domain, a remote domain controller or an alternate domain using credentials.
+    Filters include account status, creation/modification dates, logon activity, userAccountControl flags and more.
+    It returns detailed user objects with parsed and human-readable properties.
+.EXAMPLE
+    PS C:\> Get-DSUser -Name "jdoe"
+    Retrieves the user object for "jdoe" from the current domain.
+.EXAMPLE
+    PS C:\> Get-DSUser -ComputerName "DC01" -Credential (Get-Credential) -Disabled -AdminCount
+    Retrieves disabled admin accounts from a remote domain controller using provided credentials.
+.EXAMPLE
+    PS C:\> Get-DSUser -CreatedAfter (Get-Date).AddDays(-30) -PasswordNeverExpires
+    Retrieves user accounts created in the last 30 days that have passwords set to never expire.
 #>
 function Get-DSUser {
     [CmdletBinding(DefaultParameterSetName='Current')]

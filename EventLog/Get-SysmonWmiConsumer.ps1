@@ -1,14 +1,14 @@
+<#
+.SYNOPSIS
+    Get Sysmon WMI Consumer events (Event Id 20) from a local or remote host.
+.DESCRIPTION
+    Get Sysmon WMI Consumer events from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.WmiConsumer
+#>
 function Get-SysmonWmiConsumer {
-    <#
-    .SYNOPSIS
-        Get Sysmon WMI Consumer events (Event Id 20) from a local or remote host.
-    .DESCRIPTION
-        Get Sysmon WMI Consumer events from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.WmiConsumer
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -88,12 +88,12 @@ function Get-SysmonWmiConsumer {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

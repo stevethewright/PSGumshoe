@@ -1,19 +1,21 @@
+<#
+.SYNOPSIS
+    Retrieves system logoff events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for logoff events (Event ID 4634) from the "Security" log. It supports filtering
+    by logon type, user details, domain and logon ID. The cmdlet can query local logs, remote computers
+    or .evtx files. It is useful for tracking session terminations and correlating with prior logon events.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogoff -StartTime (Get-Date).AddHours(-4)
+    Retrieves logoff events from the last 4 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogoff -ComputerName "DC01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves logoff events for user "jdoe" from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventSystemLogoff -Path "C:\Logs\Security.evtx" -EventLogonType "Interactive"
+    Retrieves interactive logoff events from an offline .evtx file.
+#>
 function Get-EventSystemLogoff {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -50,7 +52,7 @@ function Get-EventSystemLogoff {
         [string[]]
         $LogonId,
 
-        # Subject�s domain or computer name. Formats vary, and include the following:
+        # Subject's domain or computer name. Formats vary, and include the following:
         #
         # * Domain NETBIOS name example: CONTOSO
         # * Lowercase full domain name: contoso.local
@@ -99,12 +101,12 @@ function Get-EventSystemLogoff {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

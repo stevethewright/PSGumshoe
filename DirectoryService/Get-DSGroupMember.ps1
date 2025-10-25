@@ -1,4 +1,23 @@
-﻿function Get-DSGroupMember {
+﻿<#
+.SYNOPSIS
+    Retrieves members of an Active Directory group, optionally using alternate or remote domain contexts.
+.DESCRIPTION
+    Retrieves the members of an Active Directory group. It supports querying the current domain context, 
+    a remote domain controller or an alternate domain using credentials. Group membership is returned
+    recursively by default.
+.EXAMPLE
+    PS C:\> Get-DSGroupMember -Identity "Domain Admins"
+    Retrieves all members of the "Domain Admins" group from the current domain.
+.EXAMPLE
+    PS C:\> Get-DSGroupMember -ComputerName "DC01" -Credential (Get-Credential) -Identity "IT Support"
+    Retrieves members of the "IT Support" group from a remote domain controller using provided credentials.
+.EXAMPLE
+    PS C:\> Get-DSGroupMember -Credential (Get-Credential) -Identity "FinanceGroup"
+    Retrieves members of the "FinanceGroup" from an alternate domain context using credentials
+.OUTPUTS
+    System.DirectoryServices.AccountManagement.Principal
+#>
+function Get-DSGroupMember {
     [CmdletBinding(DefaultParameterSetName='Current')]
     param(
         # Domain controller.

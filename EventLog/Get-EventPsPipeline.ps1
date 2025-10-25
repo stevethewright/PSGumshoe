@@ -1,12 +1,12 @@
-function Get-EventPsPipeline {
-    <#
-    .Synopsis
+<#
+.SYNOPSIS
     Get all Windows PowerShell Pipeline Events (EventID 800)
-    .DESCRIPTION
+.DESCRIPTION
     Get all Windows PowerShell Pipeline Events (EventID 800). This event is generated when module logging is enabled.
-    .NOTES
-    This function needs to be executed with administrator priviages on the host.
-    #>
+.NOTES
+    This function needs to be executed with administrator privileges on the host.
+#>
+function Get-EventPsPipeline {
     [CmdletBinding()]
     [Alias()]
     [OutputType([PSObject])]
@@ -66,10 +66,10 @@ function Get-EventPsPipeline {
 
     Begin {}
     Process {
-       # Hash for filtering
+        # Hash for filtering
         $HashFilter = @{LogName=$LogName; Id=800; ProviderName='PowerShell'}
 
-        # Hash for command paramteters
+        # Hash for command parameters
         $ParamHash = @{}
 
         if ($MaxEvents -gt 0)

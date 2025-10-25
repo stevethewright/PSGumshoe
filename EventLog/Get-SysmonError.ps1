@@ -1,19 +1,17 @@
-
+<#
+.SYNOPSIS
+    Get Sysmon error events (EventId 255).
+.DESCRIPTION
+    Get Sysmon error events either locally or remotely from a specified location.
+.EXAMPLE
+    PS C:\> Get-SysmonError
+.INPUTS
+    System.IO.FileInfo
+    System.String
+.OUTPUTS
+    Sysmon.EventRecord.Error
+#>
 function Get-SysmonError {
-    <#
-    .SYNOPSIS
-        Get Sysmon error events (EventId 255).
-    .DESCRIPTION
-        Get Sysmon error events either locally or remotely from a specified location.
-    .EXAMPLE
-        PS C:\> Get-SysmonError
-
-    .INPUTS
-        System.IO.FileInfo
-        System.String
-    .OUTPUTS
-        Sysmon.EventRecord.Error
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -33,7 +31,7 @@ function Get-SysmonError {
         [string[]]
         $Path,
 
-        # Error ID, there are 2 IDs one for Driver Communication errors and a second one for Service Thread erros.
+        # Error ID, there are 2 IDs one for Driver Communication errors and a second one for Service Thread errors.
         [Parameter(Mandatory = $false,
                    ValueFromPipelineByPropertyName = $true)]
         [string[]]
@@ -65,12 +63,12 @@ function Get-SysmonError {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

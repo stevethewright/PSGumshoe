@@ -1,30 +1,29 @@
+<#
+.SYNOPSIS
+    Get the list of privileges for a given Sysmon Process Access Mask or get a mask for a given list.
+.DESCRIPTION
+    Get the list of privileges for a given Sysmon Process Access Mask or get a mask for a given list.
+.EXAMPLE
+    PS C:\> Get-SysmonAccessMask -AccessMask 0x418                                                              
+    PROCESS_QUERY_INFORMATION
+    PROCESS_VM_OPERATION
+    PROCESS_VM_READ
+    For a given access mask return a list of access rights.
+.EXAMPLE
+    PS C:\> Get-SysmonAccessMask -AccessRight PROCESS_VM_READ,PROCESS_VM_OPERATION,PROCESS_QUERY_INFORMATION
+    0x418
+    For a list of access rights return an access mask for use in Sysmon filtering.
+.INPUTS
+    System.Int32 (AccessMask)
+    System.String[] (AccessRight)
+.OUTPUTS
+    String
+    String[]
+#>
 function Get-SysmonAccessMask {
-    <#
-    .SYNOPSIS
-        Get the list of privileges for a given Sysmon Process Access Mask or get a mask for a given list.
-    .DESCRIPTION
-        Get the list of privileges for a given Sysmon Process Access Mask or get a mask for a given list.
-    .EXAMPLE
-        PS C:\> Get-SysmonAccessMask -AccessMask 0x418                                                              
-        PROCESS_QUERY_INFORMATION
-        PROCESS_VM_OPERATION
-        PROCESS_VM_READ
-        For a given access mask return a list of access rights.
-    .EXAMPLE
-        PS C:\> Get-SysmonAccessMask -AccessRight PROCESS_VM_READ,PROCESS_VM_OPERATION,PROCESS_QUERY_INFORMATION
-        0x418
-        For a list of access rights return an access mask for use in Sysmon filtering.
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        String
-        String[]
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Mask')]
     param (
-        # Acces mask names.
+        # Access mask names.
         [Parameter(Mandatory=$true,
             ParameterSetName='Access')]
         [ValidateSet("PROCESS_CREATE_PROCESS", "PROCESS_CREATE_THREAD", "PROCESS_DUP_HANDLE","PROCESS_SET_INFORMATION",

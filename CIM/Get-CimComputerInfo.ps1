@@ -1,47 +1,43 @@
+<#
+.SYNOPSIS
+    Queries via CIM computer and operating system information.
+.DESCRIPTION
+    Queries via CIM computer and operating system information. Information is pulled form the Win32_OperatingSystem and Win32_ComputerSystem classes.
+.EXAMPLE
+    PS C:\>  Get-CimComputerInfo
+
+    ComputerName              : DESKTOP-4TVLVMD
+    OS                        : Microsoft Windows 10 Enterprise
+    Version                   : 10.0.17134
+    InstallDate               : 6/4/2018 10:00:22 PM
+    LastBootUpTime            : 1/3/2020 7:09:50 PM
+    BootupState               : Normal boot
+    LocalDateTime             : 1/8/2020 5:12:38 PM
+    OSArchitecture            : 64-bit
+    OSLanguage                : 1033
+    MUILanguages              : {en-US}
+    SystemDevice              : \Device\HarddiskVolume2
+    SystemDirectory           : C:\WINDOWS\system32
+    SystemDrive               : C:
+    BootDevice                : \Device\HarddiskVolume1
+    WindowsDirectory          : C:\WINDOWS
+    Roles                     : {LM_Workstation, LM_Server, NT, Potential_Browser...}
+    CurrentTimeZone           : -240
+    EnableDaylightSavingsTime : True
+    HypervisorPresent         : True
+    Manufacturer              : VMware, Inc.
+    Model                     : VMware Virtual Platform
+    Domain                    : WORKGROUP
+    Workgroup                 : WORKGROUP
+    NumberOfProcessors        : 1
+    NumberOfLogicalProcessors : 4
+    TotalPhysicalMemory       : 8589398016
+.INPUTS
+    Microsoft.Management.Infrastructure.CimSession[]
+.OUTPUTS
+    PSGumshoe.OSInfo
+#>
 function Get-CimComputerInfo {
-    <#
-    .SYNOPSIS
-        Queries via CIM computer and operating system information.
-    .DESCRIPTION
-        Queries via CIM computer and operating system information. Information is pulled form the Win32_OperatingSystem and Win32_ComputerSystem classes.
-    .EXAMPLE
-        PS C:\>  Get-CimComputerInfo
-
-
-        ComputerName              : DESKTOP-4TVLVMD
-        OS                        : Microsoft Windows 10 Enterprise
-        Version                   : 10.0.17134
-        InstallDate               : 6/4/2018 10:00:22 PM
-        LastBootUpTime            : 1/3/2020 7:09:50 PM
-        BootupState               : Normal boot
-        LocalDateTime             : 1/8/2020 5:12:38 PM
-        OSArchitecture            : 64-bit
-        OSLanguage                : 1033
-        MUILanguages              : {en-US}
-        SystemDevice              : \Device\HarddiskVolume2
-        SystemDirectory           : C:\WINDOWS\system32
-        SystemDrive               : C:
-        BootDevice                : \Device\HarddiskVolume1
-        WindowsDirectory          : C:\WINDOWS
-        Roles                     : {LM_Workstation, LM_Server, NT, Potential_Browser...}
-        CurrentTimeZone           : -240
-        EnableDaylightSavingsTime : True
-        HypervisorPresent         : True
-        Manufacturer              : VMware, Inc.
-        Model                     : VMware Virtual Platform
-        Domain                    : WORKGROUP
-        Workgroup                 : WORKGROUP
-        NumberOfProcessors        : 1
-        NumberOfLogicalProcessors : 4
-        TotalPhysicalMemory       : 8589398016
-        Explanation of what the example does
-    .INPUTS
-        Microsoft.Management.Infrastructure.CimSession[]
-    .OUTPUTS
-        PSGumshoe.OSInfo
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
          # CIMSession to perform query against

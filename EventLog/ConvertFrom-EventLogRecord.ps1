@@ -1,16 +1,20 @@
+<#
+.SYNOPSIS
+    Function to turn an EventLog Record in to a flat object. 
+.DESCRIPTION
+    Takes a System.Diagnostics.Eventing.Reader.EventLogRecord object, parses its XML representation
+    and extracts both system-level metadata and event-specific data from the EventData and UserData
+    sections. It flattens the structure into a single object with named properties, handling duplicate
+    field names gracefully. This function is useful for transforming complex event log entries into easily
+    consumable PowerShell objects for reporting, filtering, or exporting.
+.INPUTS
+    System.Diagnostics.Eventing.Reader.EventLogRecord
+.OUTPUTS
+    PSObject
+.NOTES
+    Author: Carlos Perez, carlos_perez[at]darkoperator.com
+#>
 function ConvertFrom-EventLogRecord {
-    <#
-    .SYNOPSIS
-        Function to turn an EventLog Record in to a flat object. 
-    .DESCRIPTION
-        Function to turn an EventLog Record in to a flat object. 
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        PSObject
-    .NOTES
-        Author: Carlos Perez, carlos_perez[at]darkoperator.com
-    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true,

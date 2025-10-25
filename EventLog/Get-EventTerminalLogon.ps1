@@ -1,3 +1,22 @@
+<#
+.SYNOPSIS
+    Retrieves Terminal Services logon events from local, remote, or offline event logs.
+.DESCRIPTION
+    Searches for Terminal Services logon events (Event ID 21) from the
+    "Microsoft-Windows-TerminalServices-LocalSessionManager/Operational" log. It supports
+    filtering by user name, IP address and time range. It can query local logs, remote
+    computers or .evtx files. This is useful for auditing Remote Desktop logins and tracking
+    session activity on terminal servers.
+.EXAMPLE
+    PS C:\> Get-EventTerminalLogon -StartTime (Get-Date).AddHours(-2)
+    Retrieves Terminal Services logon events from the last 2 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventTerminalLogon -ComputerName "RDS01" -Credential (Get-Credential) -User "jdoe"
+    Retrieves Terminal Services logon events for user "jdoe" from a remote session host.
+.EXAMPLE
+    PS C:\> Get-EventTerminalLogon -Path "C:\Logs\Terminal.evtx" -Address "192.168.1.100"
+    Retrieves Terminal Services logon events from an offline .evtx file filtered by source IP address.
+#>
 function Get-EventTerminalLogon {
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
@@ -56,12 +75,12 @@ function Get-EventTerminalLogon {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

@@ -1,19 +1,22 @@
+<#
+.SYNOPSIS
+    Retrieves system login attempt events from local, remote or offline event logs.
+.DESCRIPTION
+    Searches for login attempt events (Event ID 4648) from the specified log name (defaults to "Security").
+    It supports filtering by logon type, authentication package, NTLM sub-package, IP address, user details
+    and time range. It can query local logs, remote computers or .evtx files. This is useful for auditing
+    credential usage and detecting interactive or remote login attempts.
+.EXAMPLE
+    PS C:\> Get-EventSystemLoginAttempt -StartTime (Get-Date).AddHours(-4)
+    Retrieves login attempt events from the last 4 hours on the local system.
+.EXAMPLE
+    PS C:\> Get-EventSystemLoginAttempt -ComputerName "DC01" -Credential (Get-Credential) -UserName "jdoe"
+    Retrieves login attempts for user "jdoe" from a remote computer.
+.EXAMPLE
+    PS C:\> Get-EventSystemLoginAttempt -Path "C:\Logs\Security.evtx" -EventLogonType "Network"
+    Retrieves network login attempts from an offline .evtx file.
+#>
 function Get-EventSystemLoginAttempt {
-    <#
-    .SYNOPSIS
-        Short description
-    .DESCRIPTION
-        Long description
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -141,12 +144,12 @@ function Get-EventSystemLoginAttempt {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

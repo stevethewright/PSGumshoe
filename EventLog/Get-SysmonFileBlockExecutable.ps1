@@ -1,19 +1,18 @@
+<#
+.SYNOPSIS
+    Get Sysmon File Block Executable (EventId 27).
+.DESCRIPTION
+    File block executable operations are logged when a rule that blocks an executable is matched.
+    This event is useful for knowing what potential executable files where blocked from being written to a host.
+.EXAMPLE
+    PS C:\> Get-SysmonFileBlockExecutable -Image 'C:\Windows\System32\certutil.exe'
+    Find events where certutil was blocked from creating an executable file on the host.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.FileBlockExecutable
+#>
 function Get-SysmonFileBlockExecutable {
-    <#
-    .SYNOPSIS
-        Get Sysmon File Block Executable (EventId 27).
-    .DESCRIPTION
-        File block executable operations are logged when a rule that blocks an executable is matched. This event is useful for knowing what potential executable files where blocked from being written to a host.
-    .EXAMPLE
-        PS C:\> Get-SysmonFileBlockExecutable -Image 'C:\Windows\System32\certutil.exe'
-        Find events where certutil was blocked from creating an executable file on the host.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.FileBlockExecutable
-    .NOTES
-        
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -88,12 +87,12 @@ function Get-SysmonFileBlockExecutable {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

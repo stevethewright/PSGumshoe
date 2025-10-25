@@ -1,14 +1,22 @@
+<#
+.SYNOPSIS
+    Retrieves PowerShell script execution events from local or remote event logs or .evtx files.
+.DESCRIPTION
+    Searches for PowerShell script execution events (Event IDs 4105 and 4106)from the
+    "Microsoft-Windows-PowerShell/Operational" log or from specified .evtx files.
+    It supports filtering by execution type (Start, End, or All), time range, script block ID,
+    runspace ID and logic modifiers. It can query local logs, remote computers, or offline event log files.
+.EXAMPLE
+    PS C:\> Get-EventPsScriptCommandExec -StartTime (Get-Date).AddDays(-1)
+    Retrieves all PowerShell script execution events from the past day on the local system.
+.EXAMPLE
+    PS C:\> Get-EventPsScriptCommandExec -Path "C:\Logs\PowerShell.evtx" -ExecType "Start"
+    Retrieves only script start events from the specified .evtx file.
+.EXAMPLE
+    PS C:\> Get-EventPsScriptCommandExec -ComputerName "DC01" -Credential (Get-Credential) -ScriptBlockId "abc123"
+    Retrieves script execution events from a remote computer filtered by a specific ScriptBlock ID.
+#>
 function Get-EventPsScriptCommandExec {
-    <#
-    .Synopsis
-    Short description
-    .DESCRIPTION
-    Long description
-    .EXAMPLE
-    Example of how to use this cmdlet
-    .EXAMPLE
-    Another example of how to use this cmdlet
-    #>
     [CmdletBinding(DefaultParameterSetName='none')]
     [Alias()]
     [OutputType([PSObject])]
@@ -58,12 +66,12 @@ function Get-EventPsScriptCommandExec {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,

@@ -1,19 +1,22 @@
+<#
+.SYNOPSIS
+    Internal function for searching events with a keyed flat Event Data structure.
+.DESCRIPTION
+    Builds and executes a dynamic XML filter to query Windows Event Logs where event data
+    is stored in a structured XML format under the UserData > EventXML node. It supports filtering
+    by Event ID, provider name and custom fields within the EventXML structure. It can query local logs,
+    remote systems or `.evtx` files and supports logic inversion and suppression filtering.
+.EXAMPLE
+    Search-EventLogEventXML -EventId 10016 -ParamHash @{ Path = 'C:\Logs\System.evtx'; Provider = 'Microsoft-Windows-DistributedCOM'; AppID = '{D63B10C5-BB46-4990-A94F-E40B9D520160}' }
+    Searches a local `.evtx` file for DCOM permission events with a specific AppID.
+.EXAMPLE
+    Search-EventLogEventXML -EventId 20001 -ParamHash @{ ComputerName = 'Server01'; Provider = 'CustomApp'; UserName = 'jdoe' }
+    Queries a remote system for custom application events where the UserName field in EventXML is 'jdoe'.
+.EXAMPLE
+    Search-EventLogEventXML -EventId 30001 -ParamHash @{ Path = 'C:\Logs\App.evtx'; Provider = 'MyApp'; Suppress = $true; Action = 'Delete' }
+    Searches for events from 'MyApp' excluding those where the Action field in EventXML is 'Delete'.
+#>
 function Search-EventLogEventXML {
-    <#
-    .SYNOPSIS
-        Internal funtion for searching events with a keyed flat Event Data structure.
-    .DESCRIPTION
-        Internal funtion for searching events with a keyed flat Event Data structure.
-    .EXAMPLE
-        PS C:\> <example usage>
-        Explanation of what the example does
-    .INPUTS
-        Inputs (if any)
-    .OUTPUTS
-        Output (if any)
-    .NOTES
-        General notes
-    #>
     [CmdletBinding()]
     param (
         # Parameters of cmdlet using this helper function.

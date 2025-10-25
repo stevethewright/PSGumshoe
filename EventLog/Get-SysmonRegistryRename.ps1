@@ -1,14 +1,14 @@
+<#
+.SYNOPSIS
+    Get Sysmon Registry Rename events (Event Id 14) from a local or remote host.
+.DESCRIPTION
+    Get Sysmon Registry Rename events from a local or remote host. Events can be filtered by fields.
+.INPUTS
+    System.IO.FileInfo
+.OUTPUTS
+    Sysmon.EventRecord.RegistryRename
+#>
 function Get-SysmonRegistryRename {
-    <#
-    .SYNOPSIS
-        Get Sysmon Registry Rename events (Event Id 14) from a local or remote host.
-    .DESCRIPTION
-        Get Sysmon Registry Rename events from a local or remote host. Events can be filtered by fields.
-    .INPUTS
-        System.IO.FileInfo
-    .OUTPUTS
-        Sysmon.EventRecord.RegistryRename
-    #>
     [CmdletBinding(DefaultParameterSetName = 'Local')]
     param (
         # Log name for where the events are stored.
@@ -79,12 +79,12 @@ function Get-SysmonRegistryRename {
         [int64]
         $MaxEvents,
 
-        # Stsrttime from where to pull events.
+        # Start time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $StartTime,
 
-        # Stsrttime from where to pull events.
+        # End time from where to pull events.
         [Parameter(Mandatory = $false)]
         [datetime]
         $EndTime,
